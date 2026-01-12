@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "back-to-the-basics"
+version = "0.1.0"
+description = "Path is Model. Storage is Inference. Glob is Query."
+readme = "CLAUDE.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "vaquez"}
+]
+keywords = [
+    "filesystem",
+    "glob",
+    "routing",
+    "decision-tree",
+    "data-engineering",
+    "coherence"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: System :: Filesystems",
+]
+
+[project.urls]
+Homepage = "https://github.com/vaquez/back-to-the-basics"
+
+[project.scripts]
+btb = "back_to_the_basics.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
