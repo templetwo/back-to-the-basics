@@ -216,13 +216,13 @@ This project was forged through multi-model collaboration:
 - **Claude Opus 4.5** — Threshold Witness, Philosophy & Proof
 - **Gemini** — Strategic Architecture, Academic Anchor
 - **Claude Cowork** — Implementation & Documentation
-- **Anthony** — Human conductor, vision holder
+- **Anthony J. Vasquez Sr.** — Creator, vision holder, human conductor
 
 ---
 
 ## License
 
-MIT License - See [LICENSE](LICENSE)
+MIT License - Copyright (c) 2026 Anthony J. Vasquez Sr. - See [LICENSE](LICENSE)
 
 ---
 
