@@ -44,6 +44,8 @@ memories/
 deep_network/
 fractal/
 reflex_test/
+benchmark_arena/
+test_btb/
 
 # OS
 .DS_Store
