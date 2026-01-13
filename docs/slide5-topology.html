@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hero Shot</title>
+  <style>
+    :root {
+      --color-surface: #0a0a0a;
+      --color-surface-foreground: #fafafa;
+      --color-primary: #22d3ee;
+      --color-muted-foreground: #71717a;
+      --color-success: #22c55e;
+      --color-warning: #f97316;
+      --color-info: #a78bfa;
+      --color-border: #27272a;
+    }
+  </style>
+</head>
+<body class="col bg-surface" style="width: 960px; height: 540px; padding: 24px 32px;">
+
+  <!-- Title -->
+  <div class="fit" style="margin-bottom: 12px;">
+    <h1 class="text-2xl" style="margin: 0; color: var(--color-primary);">The Hero Shot: See the Agent's Mind</h1>
+    <p class="text-muted-foreground text-sm" style="margin: 4px 0 0 0;">Real topology from a Senior Engineer Agent after 48 hours</p>
+  </div>
+
+  <!-- Main content: topology visualization -->
+  <div class="fill-height row gap-lg">
+
+    <!-- Left: ASCII topology (styled) -->
+    <div class="col" style="width: 55%; background: #18181b; border-radius: 8px; padding: 16px; font-family: 'Courier New', monospace; font-size: 11px; overflow: hidden;">
+
+      <p style="margin: 0 0 8px 0; color: #52525b;">TOPOLOGY MAP: hero_brain/</p>
+      <p style="margin: 0 0 12px 0; color: #52525b;">Total: 226 files | 41.7KB</p>
+
+      <!-- Success branch -->
+      <div style="margin-bottom: 8px;">
+        <p style="margin: 0; color: #fafafa;">├── <span style="color: var(--color-success);">outcome=success</span></p>
+        <p style="margin: 0; color: #fafafa;">│   <span style="color: var(--color-success);">███████████</span><span style="color: #3f3f46;">░░░░░░░░░</span> <span style="color: #a1a1aa;">135 (59.7%)</span></p>
+        <p style="margin: 0 0 0 20px; color: #a1a1aa;">├── task=refactor <span style="color: var(--color-success);">████████████</span> 85</p>
+        <p style="margin: 0 0 0 20px; color: #a1a1aa;">├── task=debug <span style="color: var(--color-success);">█████</span> 35</p>
+        <p style="margin: 0 0 0 20px; color: #a1a1aa;">└── task=optimize <span style="color: var(--color-success);">██</span> 15</p>
+      </div>
+
+      <!-- Failure branch -->
+      <div style="margin-bottom: 8px;">
+        <p style="margin: 0; color: #fafafa;">├── <span style="color: var(--color-warning);">outcome=failure</span></p>
+        <p style="margin: 0; color: #fafafa;">│   <span style="color: var(--color-warning);">████</span><span style="color: #3f3f46;">░░░░░░░░░░░░░░░░</span> <span style="color: #a1a1aa;">55 (24.3%)</span></p>
+        <p style="margin: 0 0 0 20px; color: #fca5a5;">├── error=logic <span style="color: var(--color-warning);">███████████████</span> 42 ⚠️</p>
+        <p style="margin: 0 0 0 20px; color: #a1a1aa;">└── error=syntax <span style="color: var(--color-warning);">█</span> 5</p>
+      </div>
+
+      <!-- Learning branch -->
+      <div>
+        <p style="margin: 0; color: #fafafa;">└── <span style="color: var(--color-info);">outcome=learning</span></p>
+        <p style="margin: 0; color: #fafafa;">    <span style="color: var(--color-info);">███</span><span style="color: #3f3f46;">░░░░░░░░░░░░░░░░░</span> <span style="color: #a1a1aa;">36 (15.9%)</span></p>
+        <p style="margin: 0 0 0 20px; color: #a1a1aa;">├── category=pattern <span style="color: var(--color-info);">██████████</span> 18</p>
+        <p style="margin: 0 0 0 20px; color: #a1a1aa;">└── category=anti_pattern <span style="color: var(--color-info);">██████</span> 12</p>
+      </div>
+
+    </div>
+
+    <!-- Right: Insights -->
+    <div class="col gap-sm" style="width: 45%;">
+
+      <!-- Insight cards -->
+      <div class="rounded p-4" style="background: #14532d; border-left: 4px solid var(--color-success);">
+        <p style="margin: 0 0 4px 0; color: var(--color-success); font-weight: bold; font-size: 13px;">Strength: Refactoring</p>
+        <p style="margin: 0; color: #86efac; font-size: 12px;">85 successful refactors (63% of wins)</p>
+        <p style="margin: 4px 0 0 0; color: #a1a1aa; font-size: 11px;">This agent excels at code restructuring</p>
+      </div>
+
+      <div class="rounded p-4" style="background: #7c2d12; border-left: 4px solid var(--color-warning);">
+        <p style="margin: 0 0 4px 0; color: var(--color-warning); font-weight: bold; font-size: 13px;">Blind Spot: Logic Errors</p>
+        <p style="margin: 0; color: #fed7aa; font-size: 12px;">42 logic failures (76% of failures)</p>
+        <p style="margin: 4px 0 0 0; color: #a1a1aa; font-size: 11px;">Rarely makes syntax errors, but struggles with reasoning</p>
+      </div>
+
+      <div class="rounded p-4" style="background: #1e1b4b; border-left: 4px solid var(--color-info);">
+        <p style="margin: 0 0 4px 0; color: var(--color-info); font-weight: bold; font-size: 13px;">Growth: Pattern Recognition</p>
+        <p style="margin: 0; color: #c4b5fd; font-size: 12px;">18 patterns learned, 12 anti-patterns identified</p>
+        <p style="margin: 4px 0 0 0; color: #a1a1aa; font-size: 11px;">Actively building wisdom from experience</p>
+      </div>
+
+      <!-- Key insight -->
+      <div class="rounded p-4" style="background: var(--color-border); margin-top: auto;">
+        <p style="margin: 0; color: #fafafa; font-size: 12px; text-align: center;">
+          <b style="color: var(--color-primary);">The topology reveals the personality.</b>
+        </p>
+        <p style="margin: 6px 0 0 0; color: #a1a1aa; font-size: 11px; text-align: center;">
+          No queries. No dashboards. Just <span style="font-family: 'Courier New', monospace;">ls</span>.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

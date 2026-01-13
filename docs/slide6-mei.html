@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mei Standard</title>
+  <style>
+    :root {
+      --color-surface: #0a0a0a;
+      --color-surface-foreground: #fafafa;
+      --color-primary: #22d3ee;
+      --color-muted-foreground: #71717a;
+      --color-success: #22c55e;
+      --color-warning: #f97316;
+      --color-border: #27272a;
+    }
+  </style>
+</head>
+<body class="col bg-surface" style="width: 960px; height: 540px; padding: 28px 40px;">
+
+  <!-- Title -->
+  <div class="fit" style="margin-bottom: 16px;">
+    <h1 class="text-2xl" style="margin: 0; color: var(--color-primary);">The Academic Anchor</h1>
+    <p class="text-muted-foreground text-sm" style="margin: 4px 0 0 0;">Mei et al. (2507.13334) defined Context Engineering. We implemented it.</p>
+  </div>
+
+  <!-- Comparison table -->
+  <div class="fill-height col gap-sm">
+
+    <!-- Header row -->
+    <div class="row gap-sm" style="padding: 0 8px;">
+      <div style="width: 28%;"><p style="margin: 0; color: #52525b; font-size: 11px; font-weight: bold;">PILLAR</p></div>
+      <div style="width: 36%;"><p style="margin: 0; color: var(--color-warning); font-size: 11px; font-weight: bold;">INDUSTRY (Simulation)</p></div>
+      <div style="width: 36%;"><p style="margin: 0; color: var(--color-success); font-size: 11px; font-weight: bold;">BTB (Physics)</p></div>
+    </div>
+
+    <!-- Row 1: Selection -->
+    <div class="row gap-sm rounded" style="background: #18181b; padding: 14px;">
+      <div class="col" style="width: 28%;">
+        <p style="margin: 0 0 4px 0; color: #fafafa; font-weight: bold; font-size: 13px;">1. Context Selection</p>
+        <p style="margin: 0; color: #71717a; font-size: 11px;">Finding relevant info</p>
+      </div>
+      <div class="col" style="width: 36%;">
+        <p style="margin: 0 0 4px 0; color: var(--color-warning); font-size: 12px;">Vector RAG</p>
+        <p style="margin: 0; color: #71717a; font-size: 10px;">Embeddings → ANN Index → Re-rank</p>
+        <p style="margin: 4px 0 0 0; color: #fca5a5; font-size: 10px;">100ms+ latency, probabilistic</p>
+      </div>
+      <div class="col" style="width: 36%;">
+        <p style="margin: 0 0 4px 0; color: var(--color-success); font-size: 12px; font-weight: bold;">Path Traversal</p>
+        <p style="margin: 0; color: #71717a; font-size: 10px; font-family: 'Courier New', monospace;">glob("**/failure/**")</p>
+        <p style="margin: 4px 0 0 0; color: #86efac; font-size: 10px;">Zero latency, deterministic</p>
+      </div>
+    </div>
+
+    <!-- Row 2: Organization -->
+    <div class="row gap-sm rounded" style="background: #18181b; padding: 14px;">
+      <div class="col" style="width: 28%;">
+        <p style="margin: 0 0 4px 0; color: #fafafa; font-weight: bold; font-size: 13px;">2. Context Organization</p>
+        <p style="margin: 0; color: #71717a; font-size: 11px;">Structuring data</p>
+      </div>
+      <div class="col" style="width: 36%;">
+        <p style="margin: 0 0 4px 0; color: var(--color-warning); font-size: 12px;">Knowledge Graphs / SQL</p>
+        <p style="margin: 0; color: #71717a; font-size: 10px;">Complex schemas, graph DBs</p>
+        <p style="margin: 4px 0 0 0; color: #fca5a5; font-size: 10px;">External dependencies, migrations</p>
+      </div>
+      <div class="col" style="width: 36%;">
+        <p style="margin: 0 0 4px 0; color: var(--color-success); font-size: 12px; font-weight: bold;">Directory Topology</p>
+        <p style="margin: 0; color: #71717a; font-size: 10px; font-family: 'Courier New', monospace;">mkdir -p type/level/</p>
+        <p style="margin: 4px 0 0 0; color: #86efac; font-size: 10px;">The structure IS the graph</p>
+      </div>
+    </div>
+
+    <!-- Row 3: Filtering -->
+    <div class="row gap-sm rounded" style="background: #18181b; padding: 14px;">
+      <div class="col" style="width: 28%;">
+        <p style="margin: 0 0 4px 0; color: #fafafa; font-weight: bold; font-size: 13px;">3. Context Filtering</p>
+        <p style="margin: 0; color: #71717a; font-size: 11px;">Removing entropy</p>
+      </div>
+      <div class="col" style="width: 36%;">
+        <p style="margin: 0 0 4px 0; color: var(--color-warning); font-size: 12px;">LLM Pre-processing</p>
+        <p style="margin: 0; color: #71717a; font-size: 10px;">"Summarizer Agents" burning tokens</p>
+        <p style="margin: 4px 0 0 0; color: #fca5a5; font-size: 10px;">Expensive, slow, lossy</p>
+      </div>
+      <div class="col" style="width: 36%;">
+        <p style="margin: 0 0 4px 0; color: var(--color-success); font-size: 12px; font-weight: bold;">The Sentinel</p>
+        <p style="margin: 0; color: #71717a; font-size: 10px; font-family: 'Courier New', monospace;">sentinel.py → Write Permissions</p>
+        <p style="margin: 4px 0 0 0; color: #86efac; font-size: 10px;">Reject entropy at the gate</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top: 12px;">
+    <p class="text-center" style="margin: 0; color: #52525b; font-size: 11px;">
+      We didn't write a library. We wrote the <b style="color: var(--color-primary);">Reference Implementation</b>.
+    </p>
+  </div>
+
+</body>
+</html>

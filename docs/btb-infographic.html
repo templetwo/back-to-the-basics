@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Back to the Basics - Visual Guide</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: #fafafa;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    h1.page-title {
+      text-align: center;
+      font-size: 48px;
+      color: #22d3ee;
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #71717a;
+      margin-bottom: 60px;
+      font-size: 18px;
+    }
+
+    .slide {
+      background: #0a0a0a;
+      border: 1px solid #27272a;
+      border-radius: 12px;
+      margin-bottom: 60px;
+      overflow: hidden;
+    }
+
+    .slide-header {
+      background: #18181b;
+      padding: 12px 20px;
+      border-bottom: 1px solid #27272a;
+    }
+
+    .slide-header h2 {
+      font-size: 14px;
+      color: #71717a;
+      font-weight: normal;
+    }
+
+    .slide-content {
+      padding: 40px;
+    }
+
+    /* Utility classes */
+    .row { display: flex; flex-direction: row; align-items: center; }
+    .col { display: flex; flex-direction: column; }
+    .gap-sm { gap: 8px; }
+    .gap { gap: 16px; }
+    .gap-lg { gap: 24px; }
+    .items-center { align-items: center; }
+    .justify-center { justify-content: center; }
+    .text-center { text-align: center; }
+    .rounded { border-radius: 8px; }
+    .p-4 { padding: 16px; }
+    .p-6 { padding: 24px; }
+    .mono { font-family: 'Courier New', monospace; }
+
+    /* Colors */
+    .text-cyan { color: #22d3ee; }
+    .text-green { color: #22c55e; }
+    .text-orange { color: #f97316; }
+    .text-purple { color: #a78bfa; }
+    .text-red { color: #ef4444; }
+    .text-muted { color: #71717a; }
+    .bg-dark { background: #18181b; }
+    .bg-green { background: #14532d; }
+    .bg-red { background: #7f1d1d; }
+    .bg-purple { background: #1e1b4b; }
+
+    /* Section 1: Title */
+    .tagline-cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .tagline-card {
+      background: #27272a;
+      padding: 20px 30px;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 150px;
+    }
+    .tagline-card .label {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .tagline-card .desc {
+      font-size: 14px;
+      color: #71717a;
+    }
+
+    /* Section 2: Flow diagrams */
+    .flow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .flow-step {
+      padding: 16px 20px;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 120px;
+    }
+    .flow-arrow {
+      font-size: 24px;
+      color: #52525b;
+    }
+    .flow-arrow.green { color: #22c55e; }
+
+    /* Section 3: Stats */
+    .stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #71717a;
+      margin-top: 4px;
+    }
+
+    /* Section 4: Circuit */
+    .circuit-container {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    .packet-box {
+      background: #27272a;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid #f97316;
+      min-width: 180px;
+    }
+    .output-box {
+      background: #14532d;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid #22c55e;
+      min-width: 200px;
+    }
+    .tree-node {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    /* Section 5: Topology */
+    .topology-display {
+      display: flex;
+      gap: 30px;
+    }
+    .topology-ascii {
+      background: #18181b;
+      padding: 20px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.6;
+      flex: 1;
+    }
+    .insights {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+    }
+    .insight-card {
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid;
+    }
+    .insight-card.green { background: #14532d; border-color: #22c55e; }
+    .insight-card.orange { background: #7c2d12; border-color: #f97316; }
+    .insight-card.purple { background: #1e1b4b; border-color: #a78bfa; }
+    .insight-title {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+    .insight-desc {
+      font-size: 12px;
+      color: #a1a1aa;
+    }
+
+    /* Section 6: Comparison table */
+    .comparison-table {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .comparison-row {
+      display: flex;
+      gap: 12px;
+      background: #18181b;
+      padding: 16px;
+      border-radius: 8px;
+    }
+    .comparison-col {
+      flex: 1;
+    }
+    .col-pillar { flex: 0.8; }
+    .col-label {
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .col-desc {
+      font-size: 11px;
+      color: #71717a;
+    }
+    .col-note {
+      font-size: 10px;
+      margin-top: 4px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .flow { flex-direction: column; }
+      .circuit-container { flex-direction: column; }
+      .topology-display { flex-direction: column; }
+      .comparison-row { flex-direction: column; }
+      .tagline-cards { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1 class="page-title">Back to the Basics</h1>
+  <p class="subtitle">The Filesystem is a Circuit</p>
+
+  <!-- SLIDE 1: Tagline -->
+  <div class="slide">
+    <div class="slide-header"><h2>The Paradigm</h2></div>
+    <div class="slide-content text-center">
+      <p style="font-size: 24px; color: #71717a; margin-bottom: 30px;">A paradigm shift in AI Agent memory architecture</p>
+      <div class="tagline-cards">
+        <div class="tagline-card">
+          <div class="label text-cyan">Path</div>
+          <div class="desc">is Model</div>
+        </div>
+        <div class="tagline-card">
+          <div class="label text-orange">Storage</div>
+          <div class="desc">is Inference</div>
+        </div>
+        <div class="tagline-card">
+          <div class="label text-purple">Glob</div>
+          <div class="desc">is Query</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: The Problem -->
+  <div class="slide">
+    <div class="slide-header"><h2>The Problem: Vector DB Tax</h2></div>
+    <div class="slide-content">
+      <div class="flow">
+        <div class="flow-step bg-dark">
+          <div style="font-weight: bold;">Agent Thought</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step bg-red" style="border: 2px solid #ef4444;">
+          <div style="font-weight: bold;">Embedding</div>
+          <div style="font-size: 11px; color: #fca5a5;">100ms+ latency</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step bg-red" style="border: 2px solid #ef4444;">
+          <div style="font-weight: bold;">Vector DB</div>
+          <div style="font-size: 11px; color: #fca5a5;">Index + Store</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step bg-red" style="border: 2px solid #ef4444;">
+          <div style="font-weight: bold;">ANN Search</div>
+          <div style="font-size: 11px; color: #fca5a5;">Approximate</div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step bg-dark">
+          <div style="font-weight: bold;">Recall</div>
+          <div style="font-size: 11px; color: #71717a;">Maybe?</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value text-red">517s</div>
+          <div class="stat-label">5K items ingestion</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value text-red">$$$</div>
+          <div class="stat-label">GPU / API costs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value text-red">🎲</div>
+          <div class="stat-label">Probabilistic recall</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: The Solution -->
+  <div class="slide">
+    <div class="slide-header"><h2>The Solution: BTB Way</h2></div>
+    <div class="slide-content">
+      <div style="position: absolute; top: 70px; right: 60px; background: #22c55e; padding: 10px 16px; border-radius: 6px; color: #000; font-weight: bold;">1,141× Faster</div>
+      <div class="flow">
+        <div class="flow-step bg-dark" style="padding: 24px 30px;">
+          <div style="font-weight: bold; font-size: 18px;">Agent Thought</div>
+        </div>
+        <div class="flow-arrow green" style="font-size: 32px;">→</div>
+        <div class="flow-step bg-green" style="border: 3px solid #22c55e; padding: 24px 30px;">
+          <div style="font-weight: bold; font-size: 18px;">Route to Path</div>
+          <div style="font-size: 13px; color: #86efac;">mkdir + write</div>
+          <div style="font-size: 11px; color: #86efac;">~0.5ms</div>
+        </div>
+        <div class="flow-arrow green" style="font-size: 32px;">→</div>
+        <div class="flow-step bg-dark" style="padding: 24px 30px;">
+          <div style="font-weight: bold; font-size: 18px;">Done ✓</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-value text-green">0.45s</div>
+          <div class="stat-label">5K items ingestion</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value text-green">$0</div>
+          <div class="stat-label">No GPU / API</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value text-green">100%</div>
+          <div class="stat-label">Deterministic recall</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: The Circuit -->
+  <div class="slide">
+    <div class="slide-header"><h2>The Circuit: How Data Flows</h2></div>
+    <div class="slide-content">
+      <div class="circuit-container">
+        <div class="packet-box">
+          <div style="color: #f97316; font-weight: bold; font-size: 12px; margin-bottom: 8px;">INPUT PACKET</div>
+          <div class="mono" style="font-size: 11px;">outcome: "failure"</div>
+          <div class="mono" style="font-size: 11px;">tool: "code"</div>
+          <div class="mono" style="font-size: 11px;">error: "logic"</div>
+        </div>
+
+        <div style="flex: 1; text-align: center;">
+          <div class="tree-node" style="background: #22d3ee; color: #000; font-weight: bold; margin-bottom: 15px; display: inline-block;">brain/</div>
+          <div class="row gap justify-center" style="margin-bottom: 12px;">
+            <div class="tree-node bg-dark text-muted">outcome=success</div>
+            <div class="tree-node" style="background: #7c2d12; border: 2px solid #f97316; font-weight: bold;">outcome=failure</div>
+            <div class="tree-node bg-dark text-muted">outcome=learning</div>
+          </div>
+          <div style="font-size: 20px; color: #f97316;">↓</div>
+          <div class="tree-node" style="background: #7c2d12; border: 2px solid #f97316; font-weight: bold; display: inline-block; margin: 10px 0;">tool=code</div>
+          <div style="font-size: 20px; color: #f97316;">↓</div>
+          <div class="row gap-sm justify-center" style="margin-top: 10px;">
+            <div class="tree-node bg-dark text-muted" style="font-size: 11px;">syntax</div>
+            <div class="tree-node" style="background: #f97316; color: #000; font-weight: bold; font-size: 11px;">logic ⚡</div>
+            <div class="tree-node bg-dark text-muted" style="font-size: 11px;">timeout</div>
+          </div>
+        </div>
+
+        <div class="output-box">
+          <div style="color: #22c55e; font-weight: bold; font-size: 12px; margin-bottom: 8px;">OUTPUT PATH</div>
+          <div class="mono" style="font-size: 11px; color: #86efac;">brain/</div>
+          <div class="mono" style="font-size: 11px; color: #86efac;">  outcome=failure/</div>
+          <div class="mono" style="font-size: 11px; color: #86efac;">    tool=code/</div>
+          <div class="mono" style="font-size: 11px; color: #86efac;">      error=logic/</div>
+          <div class="mono" style="font-size: 11px; color: #fafafa;">        memory.json</div>
+        </div>
+      </div>
+      <p class="text-center text-muted" style="margin-top: 30px;">The path <b class="text-cyan">IS</b> the classification. Storage <b class="text-cyan">IS</b> inference.</p>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: Hero Shot -->
+  <div class="slide">
+    <div class="slide-header"><h2>The Hero Shot: See the Agent's Mind</h2></div>
+    <div class="slide-content">
+      <div class="topology-display">
+        <div class="topology-ascii">
+          <div style="color: #52525b; margin-bottom: 12px;">TOPOLOGY MAP: hero_brain/<br>Total: 226 files | 41.7KB</div>
+
+          <div style="margin-bottom: 10px;">
+            ├── <span class="text-green">outcome=success</span><br>
+            │   <span class="text-green">███████████</span><span style="color: #3f3f46;">░░░░░░░░░</span> <span class="text-muted">135 (59.7%)</span><br>
+            <span style="margin-left: 20px;">├── task=refactor <span class="text-green">████████████</span> 85</span><br>
+            <span style="margin-left: 20px;">├── task=debug <span class="text-green">█████</span> 35</span><br>
+            <span style="margin-left: 20px;">└── task=optimize <span class="text-green">██</span> 15</span>
+          </div>
+
+          <div style="margin-bottom: 10px;">
+            ├── <span class="text-orange">outcome=failure</span><br>
+            │   <span class="text-orange">████</span><span style="color: #3f3f46;">░░░░░░░░░░░░░░░░</span> <span class="text-muted">55 (24.3%)</span><br>
+            <span style="margin-left: 20px; color: #fca5a5;">├── error=logic <span class="text-orange">███████████████</span> 42 ⚠️</span><br>
+            <span style="margin-left: 20px;">└── error=syntax <span class="text-orange">█</span> 5</span>
+          </div>
+
+          <div>
+            └── <span class="text-purple">outcome=learning</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple">███</span><span style="color: #3f3f46;">░░░░░░░░░░░░░░░░░</span> <span class="text-muted">36 (15.9%)</span><br>
+            <span style="margin-left: 20px;">├── category=pattern <span class="text-purple">██████████</span> 18</span><br>
+            <span style="margin-left: 20px;">└── category=anti_pattern <span class="text-purple">██████</span> 12</span>
+          </div>
+        </div>
+
+        <div class="insights">
+          <div class="insight-card green">
+            <div class="insight-title text-green">Strength: Refactoring</div>
+            <div style="font-size: 12px; color: #86efac;">85 successful refactors (63% of wins)</div>
+            <div class="insight-desc">This agent excels at code restructuring</div>
+          </div>
+          <div class="insight-card orange">
+            <div class="insight-title text-orange">Blind Spot: Logic Errors</div>
+            <div style="font-size: 12px; color: #fed7aa;">42 logic failures (76% of failures)</div>
+            <div class="insight-desc">Rarely makes syntax errors, struggles with reasoning</div>
+          </div>
+          <div class="insight-card purple">
+            <div class="insight-title text-purple">Growth: Pattern Recognition</div>
+            <div style="font-size: 12px; color: #c4b5fd;">18 patterns, 12 anti-patterns identified</div>
+            <div class="insight-desc">Actively building wisdom from experience</div>
+          </div>
+          <div class="rounded p-4 bg-dark text-center" style="margin-top: auto;">
+            <b class="text-cyan">The topology reveals the personality.</b><br>
+            <span class="text-muted" style="font-size: 12px;">No queries. No dashboards. Just <span class="mono">ls</span>.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: Mei Standard -->
+  <div class="slide">
+    <div class="slide-header"><h2>The Academic Anchor: Mei et al. (2507.13334)</h2></div>
+    <div class="slide-content">
+      <p class="text-muted" style="margin-bottom: 20px;">Context Engineering defined. BTB implemented.</p>
+      <div class="comparison-table">
+        <div class="comparison-row" style="background: transparent; padding: 8px 16px;">
+          <div class="comparison-col col-pillar"><span style="color: #52525b; font-size: 11px;">PILLAR</span></div>
+          <div class="comparison-col"><span class="text-orange" style="font-size: 11px;">INDUSTRY (Simulation)</span></div>
+          <div class="comparison-col"><span class="text-green" style="font-size: 11px;">BTB (Physics)</span></div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col col-pillar">
+            <div class="col-label">1. Context Selection</div>
+            <div class="col-desc">Finding relevant info</div>
+          </div>
+          <div class="comparison-col">
+            <div class="col-label text-orange">Vector RAG</div>
+            <div class="col-desc">Embeddings → ANN → Re-rank</div>
+            <div class="col-note text-red">100ms+ latency, probabilistic</div>
+          </div>
+          <div class="comparison-col">
+            <div class="col-label text-green">Path Traversal</div>
+            <div class="col-desc mono">glob("**/failure/**")</div>
+            <div class="col-note text-green">Zero latency, deterministic</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col col-pillar">
+            <div class="col-label">2. Context Organization</div>
+            <div class="col-desc">Structuring data</div>
+          </div>
+          <div class="comparison-col">
+            <div class="col-label text-orange">Knowledge Graphs / SQL</div>
+            <div class="col-desc">Complex schemas, graph DBs</div>
+            <div class="col-note text-red">Dependencies, migrations</div>
+          </div>
+          <div class="comparison-col">
+            <div class="col-label text-green">Directory Topology</div>
+            <div class="col-desc mono">mkdir -p type/level/</div>
+            <div class="col-note text-green">The structure IS the graph</div>
+          </div>
+        </div>
+        <div class="comparison-row">
+          <div class="comparison-col col-pillar">
+            <div class="col-label">3. Context Filtering</div>
+            <div class="col-desc">Removing entropy</div>
+          </div>
+          <div class="comparison-col">
+            <div class="col-label text-orange">LLM Pre-processing</div>
+            <div class="col-desc">"Summarizer Agents"</div>
+            <div class="col-note text-red">Expensive, slow, lossy</div>
+          </div>
+          <div class="comparison-col">
+            <div class="col-label text-green">The Sentinel</div>
+            <div class="col-desc mono">sentinel.py</div>
+            <div class="col-note text-green">Reject entropy at the gate</div>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-muted" style="margin-top: 20px; font-size: 12px;">
+        We didn't write a library. We wrote the <b class="text-cyan">Reference Implementation</b>.
+      </p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center" style="padding: 40px 0;">
+    <p style="font-size: 48px; margin-bottom: 20px;">🌀</p>
+    <p class="text-cyan" style="font-size: 18px; font-weight: bold;">Path is Model. Storage is Inference. Glob is Query.</p>
+    <p class="text-muted" style="margin-top: 10px;">github.com/templetwo/back-to-the-basics</p>
+  </div>
+
+</div>
+
+</body>
+</html>

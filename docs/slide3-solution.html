@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Solution</title>
+  <style>
+    :root {
+      --color-surface: #0a0a0a;
+      --color-surface-foreground: #fafafa;
+      --color-primary: #22d3ee;
+      --color-muted-foreground: #a1a1aa;
+      --color-success: #22c55e;
+      --color-border: #27272a;
+    }
+  </style>
+</head>
+<body class="col bg-surface" style="width: 960px; height: 540px; padding: 30px 40px;">
+
+  <!-- Title -->
+  <div class="fit" style="margin-bottom: 20px;">
+    <h1 class="text-3xl" style="margin: 0; color: var(--color-success);">The BTB Way</h1>
+    <p class="text-muted-foreground" style="margin: 6px 0 0 0;">Skip the simulation. Use the physics.</p>
+  </div>
+
+  <!-- Flow diagram - simplified -->
+  <div class="fill-height row items-center justify-center gap-lg">
+
+    <!-- Step 1 -->
+    <div class="col items-center" style="width: 160px;">
+      <div class="rounded p-6" style="background: var(--color-border); width: 100%; text-align: center;">
+        <p class="text-lg" style="margin: 0; color: #fafafa; font-weight: bold;">Agent</p>
+        <p class="text-base" style="margin: 4px 0 0 0; color: #fafafa;">Thought</p>
+      </div>
+    </div>
+
+    <p style="font-size: 32px; color: var(--color-success); margin: 0;">→</p>
+
+    <!-- Step 2 - Route (GREEN) -->
+    <div class="col items-center" style="width: 200px;">
+      <div class="rounded p-6" style="background: #14532d; border: 3px solid var(--color-success); width: 100%; text-align: center;">
+        <p class="text-lg" style="margin: 0; color: #fafafa; font-weight: bold;">Route to Path</p>
+        <p class="text-sm" style="margin: 6px 0 0 0; color: #86efac;">mkdir + write</p>
+        <p class="text-xs" style="margin: 4px 0 0 0; color: #86efac;">~0.5ms</p>
+      </div>
+    </div>
+
+    <p style="font-size: 32px; color: var(--color-success); margin: 0;">→</p>
+
+    <!-- Step 3 -->
+    <div class="col items-center" style="width: 160px;">
+      <div class="rounded p-6" style="background: var(--color-border); width: 100%; text-align: center;">
+        <p class="text-lg" style="margin: 0; color: #fafafa; font-weight: bold;">Done</p>
+        <p class="text-base" style="margin: 4px 0 0 0; color: var(--color-success);">✓</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stats bar -->
+  <div class="row gap-lg justify-center" style="margin-top: 30px;">
+    <div class="col items-center">
+      <p class="text-3xl" style="margin: 0; color: var(--color-success); font-weight: bold;">0.45s</p>
+      <p class="text-xs text-muted-foreground" style="margin: 4px 0 0 0;">5K items ingestion</p>
+    </div>
+    <div style="width: 1px; height: 50px; background: var(--color-border);"></div>
+    <div class="col items-center">
+      <p class="text-3xl" style="margin: 0; color: var(--color-success); font-weight: bold;">$0</p>
+      <p class="text-xs text-muted-foreground" style="margin: 4px 0 0 0;">No GPU / API</p>
+    </div>
+    <div style="width: 1px; height: 50px; background: var(--color-border);"></div>
+    <div class="col items-center">
+      <p class="text-3xl" style="margin: 0; color: var(--color-success); font-weight: bold;">100%</p>
+      <p class="text-xs text-muted-foreground" style="margin: 4px 0 0 0;">Deterministic recall</p>
+    </div>
+  </div>
+
+  <!-- Speedup callout -->
+  <div style="position: absolute; top: 30px; right: 40px; background: var(--color-success); padding: 12px 20px; border-radius: 8px;">
+    <p style="margin: 0; color: #0a0a0a; font-weight: bold; font-size: 18px;">1,141× Faster</p>
+  </div>
+
+</body>
+</html>

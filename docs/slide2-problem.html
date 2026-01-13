@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Problem</title>
+  <style>
+    :root {
+      --color-surface: #0a0a0a;
+      --color-surface-foreground: #fafafa;
+      --color-primary: #22d3ee;
+      --color-muted-foreground: #a1a1aa;
+      --color-accent: #ef4444;
+      --color-border: #27272a;
+    }
+  </style>
+</head>
+<body class="col bg-surface" style="width: 960px; height: 540px; padding: 30px 40px;">
+
+  <!-- Title -->
+  <div class="fit" style="margin-bottom: 20px;">
+    <h1 class="text-3xl" style="margin: 0; color: var(--color-primary);">The Vector DB Tax</h1>
+    <p class="text-muted-foreground" style="margin: 6px 0 0 0;">Every agent thought pays a toll</p>
+  </div>
+
+  <!-- Flow diagram -->
+  <div class="fill-height row items-center justify-center gap-sm">
+
+    <!-- Step 1 -->
+    <div class="col items-center" style="width: 120px;">
+      <div class="rounded p-4" style="background: var(--color-border); width: 100%; text-align: center;">
+        <p class="text-sm" style="margin: 0; color: #fafafa; font-weight: bold;">Agent</p>
+        <p class="text-sm" style="margin: 2px 0 0 0; color: #fafafa;">Thought</p>
+      </div>
+    </div>
+
+    <p style="font-size: 20px; color: var(--color-muted-foreground); margin: 0;">→</p>
+
+    <!-- Step 2 - Embedding (RED) -->
+    <div class="col items-center" style="width: 140px;">
+      <div class="rounded p-4" style="background: #7f1d1d; border: 2px solid var(--color-accent); width: 100%; text-align: center;">
+        <p class="text-sm" style="margin: 0; color: #fafafa; font-weight: bold;">Embedding</p>
+        <p class="text-xs" style="margin: 4px 0 0 0; color: #fca5a5;">100ms+ latency</p>
+      </div>
+    </div>
+
+    <p style="font-size: 20px; color: var(--color-muted-foreground); margin: 0;">→</p>
+
+    <!-- Step 3 - Vector DB (RED) -->
+    <div class="col items-center" style="width: 140px;">
+      <div class="rounded p-4" style="background: #7f1d1d; border: 2px solid var(--color-accent); width: 100%; text-align: center;">
+        <p class="text-sm" style="margin: 0; color: #fafafa; font-weight: bold;">Vector DB</p>
+        <p class="text-xs" style="margin: 4px 0 0 0; color: #fca5a5;">Index + Store</p>
+      </div>
+    </div>
+
+    <p style="font-size: 20px; color: var(--color-muted-foreground); margin: 0;">→</p>
+
+    <!-- Step 4 - ANN Search (RED) -->
+    <div class="col items-center" style="width: 140px;">
+      <div class="rounded p-4" style="background: #7f1d1d; border: 2px solid var(--color-accent); width: 100%; text-align: center;">
+        <p class="text-sm" style="margin: 0; color: #fafafa; font-weight: bold;">ANN Search</p>
+        <p class="text-xs" style="margin: 4px 0 0 0; color: #fca5a5;">Approximate</p>
+      </div>
+    </div>
+
+    <p style="font-size: 20px; color: var(--color-muted-foreground); margin: 0;">→</p>
+
+    <!-- Step 5 -->
+    <div class="col items-center" style="width: 120px;">
+      <div class="rounded p-4" style="background: var(--color-border); width: 100%; text-align: center;">
+        <p class="text-sm" style="margin: 0; color: #fafafa; font-weight: bold;">Recall</p>
+        <p class="text-sm" style="margin: 2px 0 0 0; color: #fafafa;">Maybe?</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Stats bar -->
+  <div class="row gap-lg justify-center" style="margin-top: 30px;">
+    <div class="col items-center">
+      <p class="text-3xl" style="margin: 0; color: var(--color-accent); font-weight: bold;">517s</p>
+      <p class="text-xs text-muted-foreground" style="margin: 4px 0 0 0;">5K items ingestion</p>
+    </div>
+    <div style="width: 1px; height: 50px; background: var(--color-border);"></div>
+    <div class="col items-center">
+      <p class="text-3xl" style="margin: 0; color: var(--color-accent); font-weight: bold;">$$$</p>
+      <p class="text-xs text-muted-foreground" style="margin: 4px 0 0 0;">GPU / API costs</p>
+    </div>
+    <div style="width: 1px; height: 50px; background: var(--color-border);"></div>
+    <div class="col items-center">
+      <p class="text-3xl" style="margin: 0; color: var(--color-accent); font-weight: bold;">🎲</p>
+      <p class="text-xs text-muted-foreground" style="margin: 4px 0 0 0;">Probabilistic recall</p>
+    </div>
+  </div>
+
+</body>
+</html>

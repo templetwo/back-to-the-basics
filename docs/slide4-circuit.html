@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Circuit</title>
+  <style>
+    :root {
+      --color-surface: #0a0a0a;
+      --color-surface-foreground: #fafafa;
+      --color-primary: #22d3ee;
+      --color-muted-foreground: #a1a1aa;
+      --color-accent: #f97316;
+      --color-border: #27272a;
+    }
+  </style>
+</head>
+<body class="col bg-surface" style="width: 960px; height: 540px; padding: 30px 40px;">
+
+  <!-- Title -->
+  <div class="fit" style="margin-bottom: 16px;">
+    <h1 class="text-3xl" style="margin: 0; color: var(--color-primary);">The Filesystem Circuit</h1>
+    <p class="text-muted-foreground" style="margin: 6px 0 0 0;">Data flows through the topology like current through wires</p>
+  </div>
+
+  <!-- Main diagram -->
+  <div class="fill-height row gap-lg" style="padding: 10px 0;">
+
+    <!-- Left: Input packet -->
+    <div class="col justify-center" style="width: 200px;">
+      <div class="rounded p-4" style="background: var(--color-border); border-left: 4px solid var(--color-accent);">
+        <p class="text-sm" style="margin: 0 0 8px 0; color: var(--color-accent); font-weight: bold;">INPUT PACKET</p>
+        <p class="text-xs" style="margin: 0; color: #fafafa; font-family: 'Courier New', monospace;">outcome: "failure"</p>
+        <p class="text-xs" style="margin: 2px 0 0 0; color: #fafafa; font-family: 'Courier New', monospace;">tool: "code"</p>
+        <p class="text-xs" style="margin: 2px 0 0 0; color: #fafafa; font-family: 'Courier New', monospace;">error: "logic"</p>
+      </div>
+    </div>
+
+    <!-- Center: Decision tree visualization -->
+    <div class="col fill-width items-center justify-center">
+
+      <!-- Root -->
+      <div class="rounded" style="background: var(--color-primary); padding: 8px 20px; margin-bottom: 12px;">
+        <p style="margin: 0; color: #0a0a0a; font-weight: bold; font-size: 13px;">brain/</p>
+      </div>
+
+      <!-- Outcome branches -->
+      <div class="row gap-lg justify-center" style="margin-bottom: 12px;">
+        <div class="col items-center">
+          <div style="width: 2px; height: 20px; background: #3f3f46;"></div>
+          <div class="rounded" style="background: #3f3f46; padding: 6px 16px;">
+            <p style="margin: 0; color: #a1a1aa; font-size: 11px;">outcome=success</p>
+          </div>
+        </div>
+        <div class="col items-center">
+          <div style="width: 2px; height: 20px; background: var(--color-accent);"></div>
+          <div class="rounded" style="background: #7c2d12; border: 2px solid var(--color-accent); padding: 6px 16px;">
+            <p style="margin: 0; color: #fafafa; font-size: 11px; font-weight: bold;">outcome=failure</p>
+          </div>
+        </div>
+        <div class="col items-center">
+          <div style="width: 2px; height: 20px; background: #3f3f46;"></div>
+          <div class="rounded" style="background: #3f3f46; padding: 6px 16px;">
+            <p style="margin: 0; color: #a1a1aa; font-size: 11px;">outcome=learning</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tool branch -->
+      <div class="col items-center" style="margin-left: 60px;">
+        <div style="width: 2px; height: 16px; background: var(--color-accent);"></div>
+        <div class="rounded" style="background: #7c2d12; border: 2px solid var(--color-accent); padding: 6px 16px;">
+          <p style="margin: 0; color: #fafafa; font-size: 11px; font-weight: bold;">tool=code</p>
+        </div>
+      </div>
+
+      <!-- Error type branches -->
+      <div class="row gap-sm justify-center" style="margin-top: 12px; margin-left: 60px;">
+        <div class="col items-center">
+          <div style="width: 2px; height: 16px; background: #3f3f46;"></div>
+          <div class="rounded" style="background: #3f3f46; padding: 4px 12px;">
+            <p style="margin: 0; color: #a1a1aa; font-size: 10px;">syntax</p>
+          </div>
+        </div>
+        <div class="col items-center">
+          <div style="width: 2px; height: 16px; background: var(--color-accent);"></div>
+          <div class="rounded" style="background: var(--color-accent); padding: 4px 12px;">
+            <p style="margin: 0; color: #0a0a0a; font-size: 10px; font-weight: bold;">logic ⚡</p>
+          </div>
+        </div>
+        <div class="col items-center">
+          <div style="width: 2px; height: 16px; background: #3f3f46;"></div>
+          <div class="rounded" style="background: #3f3f46; padding: 4px 12px;">
+            <p style="margin: 0; color: #a1a1aa; font-size: 10px;">timeout</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right: Output path -->
+    <div class="col justify-center" style="width: 220px;">
+      <div class="rounded p-4" style="background: #14532d; border-left: 4px solid #22c55e;">
+        <p class="text-sm" style="margin: 0 0 8px 0; color: #22c55e; font-weight: bold;">OUTPUT PATH</p>
+        <p class="text-xs" style="margin: 0; color: #86efac; font-family: 'Courier New', monospace; word-break: break-all;">brain/</p>
+        <p class="text-xs" style="margin: 0; color: #86efac; font-family: 'Courier New', monospace;">  outcome=failure/</p>
+        <p class="text-xs" style="margin: 0; color: #86efac; font-family: 'Courier New', monospace;">    tool=code/</p>
+        <p class="text-xs" style="margin: 0; color: #86efac; font-family: 'Courier New', monospace;">      error=logic/</p>
+        <p class="text-xs" style="margin: 0; color: #fafafa; font-family: 'Courier New', monospace;">        memory.json</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer insight -->
+  <div style="position: absolute; bottom: 20px; left: 40px; right: 40px;">
+    <p class="text-center text-muted-foreground" style="margin: 0; font-size: 12px;">
+      The path <b style="color: var(--color-primary);">IS</b> the classification. Storage <b style="color: var(--color-primary);">IS</b> inference.
+    </p>
+  </div>
+
+</body>
+</html>
