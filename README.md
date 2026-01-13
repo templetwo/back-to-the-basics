@@ -38,6 +38,8 @@ Total Size:  41.7KB
 
 📊 **[View the Interactive Infographic](docs/btb-infographic.html)** — A visual walkthrough of the entire paradigm.
 
+![BTB Infographic](docs/btb-infographic.png)
+
 ---
 
 ## 📜 The Theory (The "Mei" Standard)
