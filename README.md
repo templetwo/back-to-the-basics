@@ -138,6 +138,60 @@ BTB Way: Data → Route → Done
 | `sentinel.py` | Membrane | Input firewall daemon |
 | `visualizer.py` | Eyes | Topology fMRI |
 | `ai_lab.py` | Lab | ML experiment tracker |
+| `btb_mcp_server.py` | Nerves | MCP server for native model integration |
+
+---
+
+## 🔌 MCP Integration (Claude, etc.)
+
+BTB includes a native [Model Context Protocol](https://modelcontextprotocol.io) server. Any MCP-compatible model gets direct access to filesystem memory.
+
+### Install
+
+```bash
+pip install mcp
+```
+
+### Add to Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "btb": {
+      "command": "python",
+      "args": ["/path/to/back-to-the-basics/btb_mcp_server.py", "--root", "agent_brain"]
+    }
+  }
+}
+```
+
+### Available Tools
+
+| Tool | Description |
+|---|---|
+| `btb_remember` | Store a memory (auto-routes based on outcome/tool) |
+| `btb_recall` | Query memories by pattern or intent |
+| `btb_reflect` | Analyze topology - see your own mind |
+| `btb_map` | Generate fMRI visualization |
+| `btb_hotspots` | Find data concentration areas |
+
+### Example Conversation
+
+```
+You: Remember that I fixed the auth bug using code interpreter
+Claude: [calls btb_remember(content="Fixed auth bug", outcome="success", tool="code_interpreter", task_type="debug")]
+       Memory stored at: agent_brain/outcome=success/tool=code_interpreter/task_type=debug/...
+
+You: What have I been struggling with lately?
+Claude: [calls btb_recall(outcome="failure", limit=5)]
+       [calls btb_reflect()]
+       Based on your memory topology, you've had 3 failures in logic errors
+       but strong success in refactoring tasks...
+```
+
+The model now has **persistent, structured memory** that survives across sessions.
 
 ---
 
