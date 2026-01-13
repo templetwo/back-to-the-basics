@@ -36,6 +36,8 @@ Total Size:  41.7KB
 
 **Insight:** This agent is a refactoring machine (85 wins) but struggles with logic errors (42 failures). It rarely makes syntax errors. *The topology reveals the personality.*
 
+📊 **[View the Interactive Infographic](docs/btb-infographic.html)** — A visual walkthrough of the entire paradigm.
+
 ---
 
 ## 📜 The Theory (The "Mei" Standard)
