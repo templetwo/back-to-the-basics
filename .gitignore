@@ -41,6 +41,9 @@ ai_lab/
 _inbox/
 _quarantine/
 memories/
+deep_network/
+fractal/
+reflex_test/
 
 # OS
 .DS_Store
