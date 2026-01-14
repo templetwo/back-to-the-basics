@@ -305,19 +305,43 @@ The model now has **persistent, structured memory** that survives across session
 
 ## 🔬 The Benchmark
 
-⚠️ **PROOF OF CONCEPT DATA:** These benchmarks compare filesystem operations to database operations on synthetic data. They demonstrate technical feasibility but have not been validated in production environments with real agent workloads.
+⚠️ **TRANSPARENCY**: Rigorous benchmarks with **SYNTHETIC DATA** comparing BTB against SQLite, Vector DBs, and FAISS. Results demonstrate comparative behavior, not production validation.
 
-We ran **The Gauntlet**: 5,000 synthetic agent events processed head-to-head.
+### The Gauntlet: BTB vs The World
 
-| Operation | BTB (Filesystem) | SQLite | Vector DB (Cloud) | Speedup |
-|---|---|---|---|---|
-| **Ingestion** | **0.45s** | 0.02s | 517.71s | **1,141x Faster** |
-| **Recall** | **0.03s** | 0.002s | 0.11s | **4x Faster** |
-| **Disk Size** | **658 KB** | 1012 KB | 668 KB | **35% Smaller** |
+Comprehensive comparison designed by **Grok (xAI)** testing the core thesis:
+- **BTB wins**: Structured queries (known schema)
+- **Vector DBs win**: Fuzzy semantic search
 
-*When you use semantic search for structured data, you pay a 1,141x tax on writes.*
+**Quick Summary** (100,000 items):
 
-**Note:** These measurements are on synthetic data. Real-world performance will vary based on filesystem, hardware, and workload characteristics.
+| Query Type | BTB | SQLite | FAISS | Winner |
+|------------|-----|--------|-------|--------|
+| **Structured** (exact match) | 0.235s | 0.123s | 0.068s | ✅ All fast |
+| **Fuzzy** (semantic top-100) | 18.9s | 12.3s | **0.012s** | ❌ FAISS 1,575x faster |
+
+**Key Finding**: BTB excels when schema is known. For fuzzy search, use vector approaches or hybrid.
+
+### Running the Benchmark
+
+```bash
+# Install dependencies
+pip install -r requirements-benchmark.txt
+
+# Run comparison (1,000 items)
+python benchmarks/benchmark.py --count 1000 --latency 20
+
+# Large scale (100,000 items)
+python benchmarks/benchmark.py --count 100000 --latency 0
+```
+
+**Full Details**: See [benchmarks/BENCHMARKS.md](benchmarks/BENCHMARKS.md) for:
+- Complete methodology
+- Interpretation guide
+- When to use BTB vs Vector DBs
+- Hybrid approach recommendations
+
+**Transparency**: All data synthetic. Results show comparative performance characteristics, not production measurements.
 
 ---
 

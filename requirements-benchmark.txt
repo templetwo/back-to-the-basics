@@ -1,0 +1,11 @@
+# Benchmark Dependencies
+# Install with: pip install -r requirements-benchmark.txt
+
+# Core BTB dependencies
+mcp>=0.1.0
+
+# Benchmark-specific dependencies
+numpy>=1.24.0
+faiss-cpu>=1.7.4  # Use faiss-gpu if CUDA available
+
+# Note: SQLite is built into Python standard library
