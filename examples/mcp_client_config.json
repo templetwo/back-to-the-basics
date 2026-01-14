@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "btb": {
+      "command": "python",
+      "args": [
+        "/path/to/back-to-the-basics/btb_mcp_server.py",
+        "--root",
+        "agent_brain"
+      ],
+      "env": {
+        "BTB_MEMORY_ROOT": "agent_brain"
+      }
+    }
+  }
+}

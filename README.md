@@ -98,10 +98,45 @@ See [DATA_TRANSPARENCY_NOTICE.md](DATA_TRANSPARENCY_NOTICE.md) for complete tran
 
 ### Installation
 
+#### From Source (Recommended for Development)
+
 ```bash
 git clone https://github.com/templetwo/back-to-the-basics.git
 cd back-to-the-basics
+
+# Install in editable mode with dev dependencies
+pip install -e ".[dev]"
+
+# Or just the core package
 pip install -e .
+```
+
+#### Requirements
+
+- Python 3.9 or higher
+- MCP SDK (`mcp>=0.1.0`) - automatically installed
+
+#### Running Tests
+
+```bash
+# Run test suite
+pytest
+
+# With coverage report
+pytest --cov=. --cov-report=term-missing
+
+# Run specific test file
+pytest tests/test_memory.py -v
+```
+
+#### Running Examples
+
+```bash
+# Basic usage demonstration
+python examples/basic_usage.py
+
+# Debugging workflow illustration
+python examples/debugging_workflow.py
 ```
 
 ### 1. The Circuit (Routing)
@@ -194,17 +229,50 @@ pip install mcp
 
 ### Add to Claude Desktop
 
-Add to your `claude_desktop_config.json`:
+#### Configuration File Location
+
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+#### Add BTB Server
 
 ```json
 {
   "mcpServers": {
-    "btb": {
+    "btb-memory": {
       "command": "python",
-      "args": ["/path/to/back-to-the-basics/btb_mcp_server.py", "--root", "agent_brain"]
+      "args": [
+        "/absolute/path/to/back-to-the-basics/btb_mcp_server.py",
+        "--root",
+        "agent_brain",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "PYTHONPATH": "/absolute/path/to/back-to-the-basics"
+      }
     }
   }
 }
+```
+
+**Important**: Replace `/absolute/path/to/back-to-the-basics` with your actual installation path.
+
+See `examples/claude_desktop_config.json` for a complete template.
+
+#### Starting the Server
+
+The server starts automatically when Claude Desktop launches. To verify:
+
+```bash
+# Test server directly
+python btb_mcp_server.py --root test_brain
+
+# Should output:
+# 🧠 BTB MCP Server starting...
+#    Memory root: test_brain
+#    Transport: stdio
 ```
 
 ### Available Tools

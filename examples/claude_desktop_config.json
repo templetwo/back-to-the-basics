@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "btb-memory": {
+      "command": "python",
+      "args": [
+        "/absolute/path/to/btb_mcp_server.py",
+        "--root",
+        "agent_brain",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "PYTHONPATH": "/absolute/path/to/back-to-the-basics"
+      }
+    }
+  }
+}

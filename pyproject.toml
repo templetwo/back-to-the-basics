@@ -5,20 +5,26 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "back-to-the-basics"
 version = "0.1.0"
-description = "Path is Model. Storage is Inference. Glob is Query."
-readme = "CLAUDE.md"
+description = "Filesystem-based agent memory using pure OS primitives. MCP server for BTB paradigm."
+readme = "README.md"
 requires-python = ">=3.9"
-license = {text = "MIT"}
+license = {text = "Apache-2.0"}
 authors = [
-    {name = "vaquez"}
+    {name = "Anthony J. Vasquez Sr."}
 ]
 keywords = [
+    "mcp",
+    "agent-memory",
     "filesystem",
     "glob",
     "routing",
     "decision-tree",
     "data-engineering",
-    "coherence"
+    "coherence",
+    "btb"
+]
+dependencies = [
+    "mcp>=0.1.0",
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -33,11 +39,39 @@ classifiers = [
     "Topic :: System :: Filesystems",
 ]
 
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
+
 [project.urls]
 Homepage = "https://github.com/vaquez/back-to-the-basics"
+Documentation = "https://github.com/vaquez/back-to-the-basics#readme"
+Repository = "https://github.com/vaquez/back-to-the-basics"
+Issues = "https://github.com/vaquez/back-to-the-basics/issues"
 
 [project.scripts]
-btb = "back_to_the_basics.cli:main"
+btb = "btb_mcp_server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["*.py"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=. --cov-report=term-missing"
+
+[tool.black]
+line-length = 100
+target-version = ['py39', 'py310', 'py311', 'py312']
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W"]
+ignore = ["E501"]
