@@ -147,6 +147,14 @@ Outcome types with routing metadata:
 - **Confidence Paths**: Organizes logs by confidence level (high_conf, medium_conf, low_conf)
 - **Multi-Agent Derived Schema**: Optimized through simulation testing 200+ routing configurations
 
+#### Multi-Agent Swarm
+- **Multi-Agent Coordination** (`examples/btb_multi_agent_swarm.py`):
+  - Coder-Tester-Reflector pattern
+  - Shared BTB memory as coordination layer
+  - Failure pattern recall and reflection
+  - Insight-driven iteration loop
+  - Demonstrates filesystem as multi-agent brain
+
 ### Planned Features
 - Schema discovery via `derive()` implementation
 - Domain-specific circuits (trading, security, research)

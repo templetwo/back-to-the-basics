@@ -238,6 +238,33 @@ See `examples/agent_memory_routing.py` for a complete demonstration with 50 synt
 
 📘 **[Full Agent Memory Documentation](docs/AGENT_MEMORY.md)**
 
+### 5. Multi-Agent Swarm (NEW!)
+
+Demonstrates multi-agent coordination using BTB memory as shared state.
+
+```bash
+python examples/btb_multi_agent_swarm.py
+```
+
+**Agents:**
+- **Coder** - Proposes code refactors
+- **Tester** - Validates code and detects failures
+- **Reflector** - Analyzes patterns and generates insights
+
+**Workflow:**
+1. Coder proposes refactor
+2. Tester runs validation, stores failures in BTB
+3. Reflector recalls similar failures, reflects on patterns
+4. Loop with insights until success
+
+**Example Output:**
+```
+ATTEMPT 1: Coder proposes → Tester fails → stores in BTB
+ATTEMPT 2: Reflector analyzes → generates insights → Coder fixes → SUCCESS
+```
+
+The filesystem becomes the shared brain coordinating multiple agents.
+
 ---
 
 ## 🏴 Sovereignty & Speed
