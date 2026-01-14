@@ -1,0 +1,183 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BTB Memory Entry Schema",
+  "description": "Schema for generating agent memories compatible with BTB MCP server",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["content", "outcome", "summary"],
+    "properties": {
+      "content": {
+        "type": "string",
+        "description": "Detailed description of the memory event",
+        "minLength": 10,
+        "maxLength": 500,
+        "examples": [
+          "Fixed race condition in payment processor by adding mutex lock",
+          "Implemented OAuth2 authorization code flow with PKCE extension",
+          "TypeError when passing None to json.dumps() without default handler"
+        ]
+      },
+      "outcome": {
+        "type": "string",
+        "enum": ["success", "failure", "learning", "interaction"],
+        "description": "The outcome category of this memory"
+      },
+      "tool": {
+        "type": "string",
+        "enum": ["code_interpreter", "web_search", "file_operation", "conversation", "unknown"],
+        "description": "The tool used (required for success and most failures)"
+      },
+      "summary": {
+        "type": "string",
+        "pattern": "^[a-z0-9_-]{1,50}$",
+        "description": "Filename-safe summary (lowercase, underscores, under 50 chars)",
+        "examples": [
+          "oauth2_pkce_impl",
+          "payment_race_fix",
+          "json_none_error"
+        ]
+      },
+      "task_type": {
+        "type": "string",
+        "enum": ["write", "debug", "refactor", "explain"],
+        "description": "Required for code_interpreter successes"
+      },
+      "domain": {
+        "type": "string",
+        "enum": ["technical", "research", "general"],
+        "description": "Required for web_search successes"
+      },
+      "error_type": {
+        "type": "string",
+        "enum": ["syntax", "runtime", "logic", "timeout"],
+        "description": "Required for code_interpreter failures"
+      },
+      "reason": {
+        "type": "string",
+        "enum": ["no_results", "blocked", "irrelevant"],
+        "description": "Required for web_search failures"
+      },
+      "insight_type": {
+        "type": "string",
+        "enum": ["pattern", "correction", "preference", "fact"],
+        "description": "Required for learning outcomes"
+      },
+      "sentiment": {
+        "type": "string",
+        "enum": ["positive", "neutral", "negative"],
+        "description": "Required for interaction outcomes"
+      }
+    },
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "outcome": { "const": "success" },
+            "tool": { "const": "code_interpreter" }
+          },
+          "required": ["outcome", "tool"]
+        },
+        "then": {
+          "required": ["task_type"]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "outcome": { "const": "success" },
+            "tool": { "const": "web_search" }
+          },
+          "required": ["outcome", "tool"]
+        },
+        "then": {
+          "required": ["domain"]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "outcome": { "const": "failure" },
+            "tool": { "const": "code_interpreter" }
+          },
+          "required": ["outcome", "tool"]
+        },
+        "then": {
+          "required": ["error_type"]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "outcome": { "const": "failure" },
+            "tool": { "const": "web_search" }
+          },
+          "required": ["outcome", "tool"]
+        },
+        "then": {
+          "required": ["reason"]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "outcome": { "const": "learning" }
+          },
+          "required": ["outcome"]
+        },
+        "then": {
+          "required": ["insight_type"]
+        }
+      },
+      {
+        "if": {
+          "properties": {
+            "outcome": { "const": "interaction" }
+          },
+          "required": ["outcome"]
+        },
+        "then": {
+          "required": ["sentiment"]
+        }
+      }
+    ]
+  },
+  "minItems": 1,
+  "examples": [
+    [
+      {
+        "content": "Implemented OAuth2 authorization code flow with PKCE extension",
+        "outcome": "success",
+        "tool": "code_interpreter",
+        "task_type": "write",
+        "summary": "oauth2_pkce_impl"
+      },
+      {
+        "content": "Fixed race condition in payment processor by adding mutex lock",
+        "outcome": "success",
+        "tool": "code_interpreter",
+        "task_type": "debug",
+        "summary": "payment_race_fix"
+      },
+      {
+        "content": "TypeError when passing None to json.dumps() without default handler",
+        "outcome": "failure",
+        "tool": "code_interpreter",
+        "error_type": "runtime",
+        "summary": "json_none_error"
+      },
+      {
+        "content": "Codebase uses dependency injection via constructor parameters",
+        "outcome": "learning",
+        "insight_type": "pattern",
+        "summary": "di_constructor_pattern"
+      },
+      {
+        "content": "User satisfied with detailed debugging trace",
+        "outcome": "interaction",
+        "sentiment": "positive",
+        "summary": "user_trace_praise"
+      }
+    ]
+  ]
+}

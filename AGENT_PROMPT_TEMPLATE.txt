@@ -1,0 +1,149 @@
+Generate a vast, realistic agent memory dataset for the BTB (Back to the Basics) MCP server.
+
+TARGET: Generate 1,000-10,000 realistic agent memories in valid Python list format.
+
+OUTPUT FORMAT:
+memories = [
+    {'content': '...', 'outcome': '...', 'tool': '...', 'task_type': '...', 'summary': '...'},
+    # ... continue for all memories
+]
+
+REQUIRED STRUCTURE:
+
+1. SUCCESS MEMORIES (55-65% of total)
+
+   Code Interpreter Successes:
+   {'content': 'Description of what succeeded', 'outcome': 'success', 'tool': 'code_interpreter',
+    'task_type': 'write'|'debug'|'refactor'|'explain', 'summary': 'filename_safe_summary'}
+
+   Web Search Successes:
+   {'content': 'Description of research', 'outcome': 'success', 'tool': 'web_search',
+    'domain': 'technical'|'research'|'general', 'summary': 'filename_safe_summary'}
+
+   File Operation Successes:
+   {'content': 'Description of file work', 'outcome': 'success', 'tool': 'file_operation',
+    'summary': 'filename_safe_summary'}
+
+   Conversation Successes:
+   {'content': 'Description of explanation', 'outcome': 'success', 'tool': 'conversation',
+    'summary': 'filename_safe_summary'}
+
+2. FAILURE MEMORIES (15-25% of total)
+
+   Code Interpreter Failures:
+   {'content': 'Description of what failed', 'outcome': 'failure', 'tool': 'code_interpreter',
+    'error_type': 'syntax'|'runtime'|'logic'|'timeout', 'summary': 'filename_safe_summary'}
+
+   Web Search Failures:
+   {'content': 'Description of search problem', 'outcome': 'failure', 'tool': 'web_search',
+    'reason': 'no_results'|'blocked'|'irrelevant', 'summary': 'filename_safe_summary'}
+
+   File Operation Failures:
+   {'content': 'Description of file error', 'outcome': 'failure', 'tool': 'file_operation',
+    'summary': 'filename_safe_summary'}
+
+3. LEARNING MEMORIES (10-15% of total)
+
+   {'content': 'Description of what was learned', 'outcome': 'learning',
+    'insight_type': 'pattern'|'correction'|'preference'|'fact', 'summary': 'filename_safe_summary'}
+
+4. INTERACTION MEMORIES (5-10% of total)
+
+   {'content': 'User feedback or interaction', 'outcome': 'interaction',
+    'sentiment': 'positive'|'neutral'|'negative', 'summary': 'filename_safe_summary'}
+
+CONTENT GUIDELINES:
+
+- Be specific and realistic (e.g., "Fixed race condition in payment processor by adding mutex lock")
+- Avoid generic phrases (e.g., NOT "Fixed a bug" but "Fixed TypeError in user authentication flow")
+- Use technical terminology appropriate to software development
+- Summary should be lowercase_with_underscores, under 50 chars, descriptive
+
+REALISTIC SCENARIOS TO DRAW FROM:
+
+Backend Development:
+- API endpoint implementation, database queries, authentication, rate limiting
+- Microservices communication, message queues, caching strategies
+- SQL optimization, ORM debugging, connection pooling
+
+Frontend Development:
+- Component lifecycle issues, state management, routing bugs
+- CSS layout problems, responsive design, browser compatibility
+- API integration, async data fetching, error boundaries
+
+DevOps/Infrastructure:
+- Docker containerization, Kubernetes deployments, CI/CD pipelines
+- Monitoring setup, logging configuration, performance profiling
+- Security patches, dependency updates, environment configuration
+
+Common Bugs:
+- Null pointer exceptions, type mismatches, async/await issues
+- Race conditions, deadlocks, memory leaks
+- Off-by-one errors, edge cases, boundary conditions
+- Syntax errors (missing colons, brackets, quotes)
+
+Research Topics:
+- OAuth2 flows, JWT security, password hashing
+- Database indexing strategies, query optimization
+- Async patterns, concurrency models, thread safety
+- Design patterns, SOLID principles, clean architecture
+
+User Interactions:
+- Positive: "User praised clear error messages", "User satisfied with performance"
+- Negative: "User frustrated by slow response", "User confused by output format"
+- Neutral: "User requested feature clarification", "User reported edge case"
+
+Learnings:
+- Patterns: "Codebase uses factory pattern for service initialization"
+- Corrections: "Learned to validate input before processing"
+- Preferences: "User prefers explicit typing over inference"
+- Facts: "Python asyncio.gather() runs tasks concurrently"
+
+DISTRIBUTION TARGETS:
+
+Tool Usage:
+- code_interpreter: 40-50%
+- web_search: 15-20%
+- file_operation: 10-15%
+- conversation: 5-10%
+
+Error Types (within code_interpreter failures):
+- runtime: 35-45%
+- syntax: 20-30%
+- logic: 20-30%
+- timeout: 5-10%
+
+Task Types (within code_interpreter successes):
+- debug: 35-45%
+- write: 25-35%
+- refactor: 15-25%
+- explain: 5-10%
+
+EXAMPLE OUTPUT (expand this to 1000-10000 entries):
+
+memories = [
+    {'content': 'Implemented OAuth2 authorization code flow with PKCE extension', 'outcome': 'success', 'tool': 'code_interpreter', 'task_type': 'write', 'summary': 'oauth2_pkce_impl'},
+    {'content': 'Fixed race condition in payment processor by adding transaction locks', 'outcome': 'success', 'tool': 'code_interpreter', 'task_type': 'debug', 'summary': 'payment_race_fix'},
+    {'content': 'Refactored database connection pool to use async context managers', 'outcome': 'success', 'tool': 'code_interpreter', 'task_type': 'refactor', 'summary': 'db_pool_async_refactor'},
+    {'content': 'Found comprehensive guide on Redis caching strategies for APIs', 'outcome': 'success', 'tool': 'web_search', 'domain': 'technical', 'summary': 'redis_caching_guide'},
+    {'content': 'TypeError when passing None to json.dumps() without default handler', 'outcome': 'failure', 'tool': 'code_interpreter', 'error_type': 'runtime', 'summary': 'json_none_error'},
+    {'content': 'Syntax error - forgot closing bracket in dictionary comprehension', 'outcome': 'failure', 'tool': 'code_interpreter', 'error_type': 'syntax', 'summary': 'dict_comp_syntax'},
+    {'content': 'Logic error in refactor broke existing API endpoint behavior', 'outcome': 'failure', 'tool': 'code_interpreter', 'error_type': 'logic', 'summary': 'refactor_api_break'},
+    {'content': 'Codebase consistently uses dependency injection via constructor parameters', 'outcome': 'learning', 'insight_type': 'pattern', 'summary': 'di_constructor_pattern'},
+    {'content': 'Learned to always validate environment variables on application startup', 'outcome': 'learning', 'insight_type': 'correction', 'summary': 'env_var_validation'},
+    {'content': 'User prefers inline code comments over separate documentation files', 'outcome': 'learning', 'insight_type': 'preference', 'summary': 'inline_comment_pref'},
+    {'content': 'User very satisfied with detailed debugging trace and root cause analysis', 'outcome': 'interaction', 'sentiment': 'positive', 'summary': 'user_trace_praise'},
+    {'content': 'User frustrated by repeated timeout errors in database queries', 'outcome': 'interaction', 'sentiment': 'negative', 'summary': 'user_timeout_frustration'},
+    # ... continue for 988+ more realistic, diverse memories
+]
+
+CRITICAL REQUIREMENTS:
+
+1. All memories must have valid Python dict syntax
+2. All required fields must be present for each outcome/tool combination
+3. Summaries must be unique (no duplicates)
+4. Content must be specific and realistic
+5. Distribution must match the percentages above
+6. Output must be valid Python that can be copy-pasted and executed
+
+Generate the complete dataset now.
