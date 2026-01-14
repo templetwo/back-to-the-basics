@@ -315,7 +315,48 @@ The optimizations (episode grouping, regex alternatives, predicate defaults) are
 
 ---
 
+### 2026-01-13 (Late Evening): Multi-Agent Swarm
+
+**What happened**: User provided multi-agent swarm implementation demonstrating BTB memory as coordination layer.
+
+**The Pattern**: Coder-Tester-Reflector loop with shared filesystem state.
+
+**Implementation**: `examples/btb_multi_agent_swarm.py`
+- **Coder Agent**: Proposes code refactors
+- **Tester Agent**: Validates code, stores failures in BTB memory
+- **Reflector Agent**: Analyzes patterns via reflect() and map(), generates insights
+- **Workflow**: Iterative loop with insight-driven improvement
+
+**Demo Task**: Refactor naive Fibonacci to memoized O(n) version
+- Attempt 1: Coder proposes (intentional bug) → Tester fails → stores in BTB
+- Attempt 2: Reflector analyzes failures → generates insights → Coder applies fixes → Tester succeeds
+
+**Key Features**:
+- Shared BTB memory coordinates agents (no message passing needed)
+- Failure recall finds similar past errors via glob patterns
+- Topology-based debugging (`btb_map` shows brain state)
+- Pattern reflection generates actionable insights
+- Demonstrates filesystem as multi-agent coordination layer
+
+**The Insight**: The filesystem isn't just a circuit for data routing - it's a **coordination medium** for autonomous agents.
+
+Multiple agents can collaborate by:
+- Storing experiences in shared BTB memory
+- Recalling similar patterns across agent boundaries
+- Reflecting on collective failures
+- Iterating with shared insights
+
+**Status**:
+- ✅ Working implementation (387 lines)
+- ✅ Demo succeeds on second attempt after reflection
+- ✅ README and CHANGELOG updated
+- ✅ Committed and pushed
+
+**The Evolution**: BTB started as structured routing, became fractal hierarchies, extended to agent memory, and now enables **multi-agent coordination**.
+
+---
+
 *Coherence over constraint. Circuit over warehouse. Path over query.*
 
 **"The filesystem is not storage. It is a circuit."**
-**"And now it routes agents."**
+**"And now it coordinates agents."**
