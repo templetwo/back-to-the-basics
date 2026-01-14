@@ -184,6 +184,60 @@ See the shape of your agent's mind.
 btb map --root brain --hotspots 20
 ```
 
+### 4. Agent Memory (NEW!)
+
+BTB now includes optimized routing for multi-agent systems with thought-action-observation patterns.
+
+```python
+from coherence import Coherence
+from agent_memory_schema import OPTIMIZED_MEMORY_SCHEMA, prepare_agent_log_packet
+
+# Initialize with agent schema
+engine = Coherence(schema=OPTIMIZED_MEMORY_SCHEMA, root="agent_memory")
+
+# Agent log (ReAct, LangGraph, Auto-GPT style)
+agent_log = {
+    "episode": 15,
+    "step": 2,
+    "thought": "Need weather data",
+    "action": "call_weather_api(city='Seattle')",
+    "observation": "12°C, rainy",
+    "outcome": "success",
+    "confidence": 0.98
+}
+
+# Route to optimized path
+packet = prepare_agent_log_packet(agent_log)
+path = engine.transmit(packet)
+# → agent_memory/outcome=success/high_conf/search/10-19/2.json
+```
+
+**Fast recall examples:**
+```python
+from glob import glob
+
+# All failures - instant
+failures = glob("agent_memory/**/failure/**/*.json")
+
+# High-confidence errors - potential model issues
+high_conf_fails = glob("agent_memory/outcome=failure/**/high_conf/**/*.json")
+
+# Successful searches
+wins = glob("agent_memory/outcome=success/search/**/*.json")
+```
+
+**Key Features:**
+- 🚀 **Episode grouping** - Scale to 10K+ episodes without directory explosion
+- ⚡ **Shallow routing** - 3-4 levels avg (fast OS metadata)
+- 🔍 **Instant failure debugging** - `glob("**/failure/**")`
+- 📊 **Visual observability** - Directory tree IS the dashboard
+- 🎯 **Tool performance analysis** - Group by tool family
+- 🧠 **Confidence stratification** - High/medium/low confidence paths
+
+See `examples/agent_memory_routing.py` for a complete demonstration with 50 synthetic agent logs.
+
+📘 **[Full Agent Memory Documentation](docs/AGENT_MEMORY.md)**
+
 ---
 
 ## 🏴 Sovereignty & Speed
@@ -209,6 +263,7 @@ BTB Way: Data → Route → Done
 | Module | Metaphor | Function |
 |---|---|---|
 | `coherence.py` | Physics | The routing engine (transmit/receive) |
+| `agent_memory_schema.py` | Neural | Optimized routing for multi-agent systems |
 | `memory.py` | Cortex | Agentic memory system |
 | `sentinel.py` | Membrane | Input firewall daemon |
 | `visualizer.py` | Eyes | Topology fMRI |

@@ -129,11 +129,17 @@ class Coherence:
         # current_node is now the leaf (filename template)
         if isinstance(current_node, str):
             try:
-                filename = current_node.format(**packet)
+                # Handle predicate paths with defaults like "{error_type=unknown}"
+                template = self._expand_template_with_defaults(current_node, packet)
+                filename = template.format(**packet)
             except KeyError as e:
                 filename = f"missing_{e}_{datetime.now().isoformat()}"
         else:
             filename = f"{packet.get('id', 'data')}_{datetime.now().isoformat()}"
+
+        # Handle confidence path suffix if present
+        if 'confidence_path' in packet and packet['confidence_path']:
+            path_segments.append(packet['confidence_path'].lstrip('/'))
 
         full_path = os.path.join(*path_segments, filename)
 
@@ -141,6 +147,30 @@ class Coherence:
             os.makedirs(os.path.dirname(full_path), exist_ok=True)
 
         return full_path
+
+    def _expand_template_with_defaults(self, template: str, packet: Dict) -> str:
+        """
+        Expand template with predicate defaults.
+
+        Handles patterns like "{error_type=unknown}" by providing defaults
+        for missing keys in the packet.
+
+        Example:
+            template: "failure/{error_type=unknown}/{step}.json"
+            packet: {"step": 5}  # no error_type
+            result: "failure/unknown/5.json"
+        """
+        # Find all {key=default} patterns
+        pattern = r'\{(\w+)=([^}]+)\}'
+        matches = re.findall(pattern, template)
+
+        for key, default in matches:
+            if key not in packet:
+                packet[key] = default
+            # Replace {key=default} with {key} for standard formatting
+            template = template.replace(f"{{{key}={default}}}", f"{{{key}}}")
+
+        return template
 
     def _match_branch(self, value: Any, branches: Dict) -> tuple:
         """
@@ -150,6 +180,8 @@ class Coherence:
         - Exact match (categorical): "lidar", "thermal"
         - Numeric predicates: ">100", "<=50", "10-100"
         - Regex patterns: "r/pattern/"
+        - Pipe-delimited alternatives: "search|web_search|info_gather"
+        - Predicate with default: "{error_type=unknown}"
         """
         # First try exact match
         if value in branches:
@@ -164,10 +196,24 @@ class Coherence:
         # Try regex matching for strings
         if isinstance(value, str):
             for pattern, next_node in branches.items():
+                # Regex pattern: "r/pattern/"
                 if pattern.startswith("r/") and pattern.endswith("/"):
                     regex = pattern[2:-1]
                     if re.match(regex, value):
                         return (pattern, next_node)
+
+                # Pipe-delimited alternatives: "search|web_search|info_gather"
+                if "|" in pattern:
+                    alternatives = [alt.strip() for alt in pattern.split("|")]
+                    if value in alternatives or any(alt in value for alt in alternatives):
+                        # Return the matched alternative as the segment
+                        matched_alt = next((alt for alt in alternatives if alt in value), alternatives[0])
+                        return (matched_alt, next_node)
+
+                # Predicate with default: "{error_type=unknown}"
+                if pattern.startswith("{") and pattern.endswith("}") and "=" in pattern:
+                    # This is handled in the leaf template, not branching
+                    continue
 
         return (None, None)
 

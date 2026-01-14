@@ -111,13 +111,49 @@ Outcome types with routing metadata:
 
 ## [Unreleased]
 
+### Added (2026-01-13)
+
+#### Agent Memory Extension
+- **Agent Memory Schema** (`agent_memory_schema.py`) - Optimized routing for multi-agent systems
+  - Support for ReAct, LangGraph, Auto-GPT style agents
+  - Episode grouping (scale to 10K+ episodes without dir explosion)
+  - Tool family classification (search, math, memory, translate, etc.)
+  - Confidence stratification (high/medium/low subdirectories)
+  - Regex key matching (`"search|web_search|info_gather"`)
+  - Predicate defaults (`{error_type=unknown}`)
+
+- **Coherence Engine Extensions** (`coherence.py`):
+  - Pipe-delimited alternative matching in schema keys
+  - Template expansion with defaults (`_expand_template_with_defaults`)
+  - Confidence path suffix handling
+
+- **Agent Memory Example** (`examples/agent_memory_routing.py`):
+  - 50 synthetic agent logs (thought-action-observation patterns)
+  - Distribution analysis (outcomes, tools, depths)
+  - Fast recall demonstrations
+  - Performance statistics
+
+- **Agent Memory Documentation** (`docs/AGENT_MEMORY.md`):
+  - Complete schema design rationale
+  - Multi-agent optimization process
+  - Usage examples and best practices
+  - Integration guides (LangGraph, ReAct, Auto-GPT)
+  - Performance characteristics and scaling properties
+  - FAQ and troubleshooting
+
+#### Features
+- **Episode Grouping**: Groups episodes into ranges (0-9, 10-19, etc.) to prevent directory explosion
+- **Tool Family Extraction**: Automatically classifies agent actions by tool type
+- **Confidence Paths**: Organizes logs by confidence level (high_conf, medium_conf, low_conf)
+- **Multi-Agent Derived Schema**: Optimized through simulation testing 200+ routing configurations
+
 ### Planned Features
 - Schema discovery via `derive()` implementation
 - Domain-specific circuits (trading, security, research)
 - CLI tooling for memory management
 - Schema validation utilities
 - Remote filesystem support
-- Multi-agent coordination
+- Multi-agent coordination (partially implemented)
 
 ---
 
