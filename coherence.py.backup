@@ -10,24 +10,14 @@ Three modes:
 1. transmit() - Data → Path (write-time routing)
 2. receive()  - Intent → Glob (read-time tuning)
 3. derive()   - Chaos → Schema (discover latent structure)
-
-Extension: Fractal routing for self-similar agent hierarchies.
-Models deep delegation trees (e.g., manager → sub-managers → workers).
 """
 
 import os
 import re
-import random
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 from collections import defaultdict
 from datetime import datetime
-
-try:
-    import sympy as sp
-    SYMPY_AVAILABLE = True
-except ImportError:
-    SYMPY_AVAILABLE = False
 
 
 class Coherence:
@@ -38,22 +28,14 @@ class Coherence:
     Data flows through logic gates (directories) and finds its own place.
     """
 
-    def __init__(self, schema: Optional[Dict] = None, root: str = "data_lake",
-                 max_depth: int = 10, fractal_mode: bool = False, branching: int = 2):
+    def __init__(self, schema: Dict, root: str = "data_lake"):
         """
-        Initialize with a routing schema or generate fractal schema.
-
-        Args:
-            schema: Routing schema (nested dict). If None, generates fractal schema.
-            root: Root directory for data
-            max_depth: Maximum recursion depth for fractal schemas
-            fractal_mode: Enable fractal (self-similar) routing
-            branching: Branching factor for fractal schemas (default 2 = binary)
+        Initialize with a routing schema.
 
         The schema IS the model. It's a nested dict that functions
         as a decision tree classifier.
 
-        Example traditional schema:
+        Example schema:
         {
             "sensor": {
                 "lidar": {
@@ -65,22 +47,9 @@ class Coherence:
                 "thermal": "{timestamp}_thermal.tiff"
             }
         }
-
-        Example fractal schema (auto-generated):
-        Models agent hierarchies with self-similar delegation trees.
-        Each level mirrors the structure (manager delegates to sub-managers, etc.)
         """
+        self.schema = schema
         self.root = root
-        self.max_depth = max_depth
-        self.fractal_mode = fractal_mode
-        self.branching = branching
-
-        if schema is None and fractal_mode:
-            self.schema = self.generate_fractal_schema(depth=max_depth, branching=branching)
-        elif schema is None:
-            raise ValueError("Must provide schema or enable fractal_mode")
-        else:
-            self.schema = schema
 
     def transmit(self, packet: Dict[str, Any], dry_run: bool = True) -> str:
         """
@@ -269,179 +238,6 @@ class Coherence:
 
         return os.path.join(*segments)
 
-    # =========================================================================
-    # FRACTAL ROUTING EXTENSION
-    # =========================================================================
-
-    @classmethod
-    def compute_tree_stats(cls, branching: int = 2, depth: int = 10) -> Dict:
-        """
-        Use sympy to model self-similar decision tree statistics.
-
-        For a tree with branching factor b and depth d:
-        - Total nodes: (b^(d+1) - 1) / (b - 1)
-        - Leaf nodes (workers): b^d
-
-        Args:
-            branching: Branching factor (default 2 = binary tree)
-            depth: Tree depth (number of levels)
-
-        Returns:
-            Dict with 'total_nodes' and 'leaves' counts
-
-        Example:
-            depth=10, branching=2 → 4095 total nodes, 1024 leaves
-        """
-        if not SYMPY_AVAILABLE:
-            # Fallback to manual calculation
-            total = (branching ** (depth + 1) - 1) // (branching - 1)
-            leaves = branching ** depth
-            return {'total_nodes': total, 'leaves': leaves}
-
-        b, d = sp.symbols('b d')
-        total_nodes = (b**(d+1) - 1) / (b - 1)
-        leaves = b**d
-        stats = {
-            'total_nodes': int(total_nodes.subs({b: branching, d: depth})),
-            'leaves': int(leaves.subs({b: branching, d: depth}))
-        }
-        return stats
-
-    def generate_fractal_schema(self, depth: int, branching: int = 2) -> Dict:
-        """
-        Generate self-similar schema for agent hierarchies.
-
-        Creates fractal (self-repeating) structure where each level
-        mirrors the overall pattern. Models delegation trees:
-        - Top manager delegates to sub-managers
-        - Sub-managers delegate to workers
-        - Pattern repeats at each level
-
-        Args:
-            depth: How many levels deep (0 = leaf file)
-            branching: Number of branches at each level
-
-        Returns:
-            Nested dict schema with self-similar structure
-
-        Example (depth=2, branching=2):
-        {
-            "delegation": {
-                "branch_0": {
-                    "delegation": {
-                        "branch_0": "{agent_id}.json",
-                        "branch_1": "{agent_id}.json"
-                    }
-                },
-                "branch_1": {
-                    "delegation": {
-                        "branch_0": "{agent_id}.json",
-                        "branch_1": "{agent_id}.json"
-                    }
-                }
-            }
-        }
-        """
-        def build(current_depth: int):
-            if current_depth == 0:
-                return "{agent_id}.json"
-            return {
-                "delegation": {
-                    f"branch_{i}": build(current_depth - 1) for i in range(branching)
-                }
-            }
-        return build(depth)
-
-    def simulate_routing(self, packet: Dict[str, Any], depth: int = 10) -> List[str]:
-        """
-        Simulate routing through deep agent hierarchy.
-
-        Traces path through fractal delegation tree, simulating how
-        an agent task would flow from top manager down to worker leaf.
-
-        Args:
-            packet: Data packet (must contain 'agent_id' for determinism)
-            depth: How many levels to traverse
-
-        Returns:
-            List of path segments showing delegation route
-
-        Example output:
-            ['agent_hierarchy', 'delegation=branch_1', 'delegation=branch_0',
-             'delegation=branch_1', ..., 'agent_42.json']
-        """
-        path = [self.root]
-        current_node = self.schema
-        current_depth = 0
-
-        while isinstance(current_node, dict) and current_depth < depth:
-            key = next(iter(current_node))  # e.g., 'delegation'
-            branches = current_node[key]
-
-            # Deterministic branch selection based on agent_id hash
-            choice_hash = hash(str(packet.get('agent_id', random.random()))) % len(branches)
-            selected_branch = list(branches.keys())[choice_hash]
-
-            path.append(f"{key}={selected_branch}")
-            current_node = branches[selected_branch]
-            current_depth += 1
-
-        # Add filename at leaf
-        if isinstance(current_node, str):
-            path.append(current_node.format(**packet))
-
-        return path
-
-    def visualize_tree(self, node=None, prefix="", last=True, max_vis_depth=3, current_depth=0):
-        """
-        ASCII visualization of schema tree.
-
-        Limited to max_vis_depth for readability (full fractal would be huge).
-
-        Args:
-            node: Current node (defaults to root schema)
-            prefix: Current line prefix (for indentation)
-            last: Is this the last sibling?
-            max_vis_depth: Maximum depth to visualize
-            current_depth: Current recursion depth
-
-        Example output:
-            delegation
-            ├─ branch_0
-            │   └─ delegation
-            │       ├─ branch_0
-            │       │   └─ ... (deeper levels truncated)
-            │       └─ branch_1
-            │           └─ ... (deeper levels truncated)
-            └─ branch_1
-                └─ delegation
-                    ├─ branch_0
-                    │   └─ ... (deeper levels truncated)
-                    └─ branch_1
-                        └─ ... (deeper levels truncated)
-        """
-        if current_depth > max_vis_depth:
-            print(prefix + ("└─ " if last else "├─ ") + "... (deeper levels truncated)")
-            return
-
-        if node is None:
-            node = self.schema
-
-        if isinstance(node, str):
-            print(prefix + ("└─ " if last else "├─ ") + node)
-            return
-
-        items = list(node.items())
-        for i, (key, subnode) in enumerate(items):
-            is_last = (i == len(items) - 1)
-            print(prefix + ("└─ " if is_last else "├─ ") + key)
-            new_prefix = prefix + ("    " if is_last else "│   ")
-            self.visualize_tree(subnode, new_prefix, True, max_vis_depth, current_depth + 1)
-
-    # =========================================================================
-    # END FRACTAL EXTENSION
-    # =========================================================================
-
     @classmethod
     def derive(cls, paths: List[str], min_frequency: float = 0.1) -> Dict:
         """
@@ -588,33 +384,6 @@ if __name__ == "__main__":
     for key, info in discovered['_structure'].items():
         print(f"    - {key}: {info['values']}")
 
-    # --- FRACTAL: Agent hierarchy routing ---
-    print("\n" + "=" * 60)
-    print("[FRACTAL] Agent Hierarchy Routing Extension")
-    print("=" * 60)
-
-    # Create fractal engine for agent delegation
-    fractal_engine = Coherence(fractal_mode=True, root="agent_hierarchy", max_depth=10, branching=2)
-
-    # Compute tree statistics using sympy
-    stats = Coherence.compute_tree_stats(branching=2, depth=10)
-    print(f"\n[MODEL] Self-similar tree stats (depth=10, binary branching):")
-    print(f"  Total nodes (agents): {stats['total_nodes']}")
-    print(f"  Leaf nodes (workers): {stats['leaves']}")
-
-    # Simulate routing through deep hierarchy
-    print(f"\n[SIMULATE] Routing agent packet through 10-level hierarchy:")
-    packet = {"agent_id": "agent_42"}
-    sim_path = fractal_engine.simulate_routing(packet, depth=10)
-    print(f"  Agent: {packet['agent_id']}")
-    print(f"  Route: {' → '.join(sim_path[:4])} → ... → {sim_path[-1]}")
-    print(f"  Total hops: {len(sim_path) - 2} delegation levels")
-
-    # Visualize tree structure (limited depth for readability)
-    print(f"\n[VISUALIZE] ASCII tree (depth 3 shown, full tree has {stats['total_nodes']} nodes):")
-    fractal_engine.visualize_tree(max_vis_depth=3)
-
     print("\n" + "=" * 60)
     print("The filesystem is not storage. It is a circuit.")
-    print("Extension: Fractal routing for self-similar agent hierarchies.")
     print("=" * 60)

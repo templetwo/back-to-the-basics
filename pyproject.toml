@@ -25,6 +25,7 @@ keywords = [
 ]
 dependencies = [
     "mcp>=0.1.0",
+    "sympy>=1.12",  # For fractal routing tree modeling
 ]
 classifiers = [
     "Development Status :: 3 - Alpha",
