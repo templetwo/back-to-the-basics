@@ -1,16 +1,35 @@
 # BTB MCP Server - Deep Use Case Test Results
 
+⚠️ **DATA TRANSPARENCY:** This document contains SYNTHETIC test data generated for demonstration purposes. See `DATA_TRANSPARENCY_NOTICE.md` for full details.
+
 **Date:** 2026-01-13
-**Test Type:** Multi-session agent workflow simulation
+**Test Type:** Multi-session agent workflow simulation (SYNTHETIC DATA)
 **Memory Root:** `agent_brain/`
 **Total Memories:** 30 (after cleanup from 31)
 **Storage:** 10.3KB
 
 ---
 
+## ⚠️ Important: Synthetic Test Data
+
+**What's Real:**
+- ✅ The BTB MCP server implementation and functionality
+- ✅ The memory routing, recall, and reflection capabilities
+- ✅ The topology visualization output shown below
+- ✅ The performance metrics (file sizes, query speeds)
+
+**What's Synthetic:**
+- ⚠️ The 31 test memories were GENERATED for demonstration
+- ⚠️ The "3-session workflow" is a SIMULATED scenario
+- ⚠️ Memory contents are REALISTIC but FABRICATED examples
+
+**Purpose:** Demonstrate BTB capabilities at scale with realistic data patterns.
+
+---
+
 ## Test Scenario
 
-Simulated a realistic 3-session agent workflow:
+Simulated a realistic 3-session agent workflow (SYNTHETIC DATA):
 
 ### Session 1: Morning Development (10 memories)
 - JWT authentication implementation
