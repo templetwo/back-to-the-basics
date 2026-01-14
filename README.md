@@ -2,6 +2,10 @@
 
 > **"The filesystem is not storage. It is a circuit."**
 
+⚠️ **PROJECT STATUS:** This is a **PROOF OF CONCEPT** demonstrating filesystem-based agent memory. While the implementation is functional, it has not been empirically validated in production environments. See [DATA_TRANSPARENCY_NOTICE.md](DATA_TRANSPARENCY_NOTICE.md) for complete transparency about claims and limitations.
+
+---
+
 Back to the Basics (BTB) is a paradigm shift in AI Agent architecture. It rejects the complexity of Vector Databases and "Context Management SDKs" in favor of the operating system's native primitives.
 
 **Path is Model. Storage is Inference. Glob is Query.**
@@ -12,7 +16,7 @@ Back to the Basics (BTB) is a paradigm shift in AI Agent architecture. It reject
 
 Most agent memory systems are black boxes. BTB allows you to visualize the agent's cognition as a topology.
 
-Below is a real scan of a "Senior Engineer Agent" after 48 hours of work. You can instantly see its strengths (Refactoring) and its blind spots (Logic Errors).
+⚠️ **Note:** The example below is a **SYNTHETIC DEMONSTRATION** showing how BTB topology visualization would work with real data. This is an illustrative example, not from an actual 48-hour agent deployment.
 
 ```
 TOPOLOGY MAP: hero_brain/
@@ -34,7 +38,9 @@ Total Size:  41.7KB
     └── category=anti_pattern        ██████░░░░░░░░░░░░░░    12 ( 33.3%)
 ```
 
-**Insight:** This agent is a refactoring machine (85 wins) but struggles with logic errors (42 failures). It rarely makes syntax errors. *The topology reveals the personality.*
+**Hypothetical Insight:** In this synthetic example, the agent would be a refactoring machine (85 wins) but struggles with logic errors (42 failures). It rarely makes syntax errors. *The topology reveals the personality.*
+
+**Purpose:** This demonstrates HOW topology-based analysis would work, not claims about actual agent performance.
 
 📊 **[View the Interactive Infographic](docs/btb-infographic.html)** — A visual walkthrough of the entire paradigm.
 
@@ -53,6 +59,38 @@ The industry responded with complex software simulations (Meta's Confucius, Vect
 | **1. Context Selection** (Finding relevant info) | Vector RAG Embeddings, ANN Index, Re-ranking models. | **Path Traversal** `glob("**/outcome=failure/**")` Deterministic, zero-latency. |
 | **2. Context Organization** (Structuring data) | Knowledge Graphs / SQL Complex schemas, graph databases. | **Directory Topology** `mkdir -p type/level/source` The structure *is* the graph. |
 | **3. Context Filtering** (Removing entropy) | LLM Pre-processing "Summarizer Agents" burning tokens. | **The Sentinel** `sentinel.py` Rejects entropy at the gate (Write Permissions). |
+
+---
+
+## 📋 Project Status & Scope
+
+### What This Project IS:
+
+✅ **Proof of Concept** - Demonstrates filesystem-based agent memory architecture
+✅ **Working Implementation** - Functional code for memory routing, recall, and visualization
+✅ **Novel Paradigm** - Alternative approach to vector databases and traditional storage
+✅ **Educational Tool** - Shows how OS primitives can replace complex abstractions
+✅ **Research Platform** - Foundation for experimentation and further development
+
+### What This Project IS NOT:
+
+❌ **Production-Ready System** - Has not been battle-tested in real deployments
+❌ **Empirically Validated** - Performance claims are based on synthetic benchmarks
+❌ **Replacement for Vector DBs** - Different use case (structured vs semantic search)
+❌ **Peer-Reviewed Research** - Academic methodology, not formal publication
+
+### Current Validation Status:
+
+- ✅ Code functionality verified
+- ✅ Core concepts demonstrated
+- ✅ Synthetic benchmarks completed
+- ⚠️ Real-world deployment: **Not tested**
+- ⚠️ Production scale: **Not validated**
+- ⚠️ Comparative studies: **Not conducted**
+
+**Recommendation:** Treat as an experimental approach suitable for prototyping and research. Production use requires further validation.
+
+See [DATA_TRANSPARENCY_NOTICE.md](DATA_TRANSPARENCY_NOTICE.md) for complete transparency about all claims and limitations.
 
 ---
 
@@ -199,7 +237,9 @@ The model now has **persistent, structured memory** that survives across session
 
 ## 🔬 The Benchmark
 
-We ran **The Gauntlet**: 5,000 agent events processed head-to-head.
+⚠️ **PROOF OF CONCEPT DATA:** These benchmarks compare filesystem operations to database operations on synthetic data. They demonstrate technical feasibility but have not been validated in production environments with real agent workloads.
+
+We ran **The Gauntlet**: 5,000 synthetic agent events processed head-to-head.
 
 | Operation | BTB (Filesystem) | SQLite | Vector DB (Cloud) | Speedup |
 |---|---|---|---|---|
@@ -208,6 +248,8 @@ We ran **The Gauntlet**: 5,000 agent events processed head-to-head.
 | **Disk Size** | **658 KB** | 1012 KB | 668 KB | **35% Smaller** |
 
 *When you use semantic search for structured data, you pay a 1,141x tax on writes.*
+
+**Note:** These measurements are on synthetic data. Real-world performance will vary based on filesystem, hardware, and workload characteristics.
 
 ---
 
