@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-01-13T22:22:37.366579",
+  "outcome": "success",
+  "tool": "tester",
+  "summary": "Test_result__success",
+  "content": "Test result: success",
+  "metadata": {},
+  "_path": "swarm_brain/_intake/no_match/unknown_2026-01-13T22:22:37.366576/20260113_222237_Test_result__success.json"
+}

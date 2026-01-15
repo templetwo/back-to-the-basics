@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-01-13T22:22:37.363826",
+  "outcome": "failure",
+  "tool": "tester",
+  "summary": "Test_result__failure",
+  "content": "Test result: failure",
+  "metadata": {},
+  "_path": "swarm_brain/_intake/no_match/unknown_2026-01-13T22:22:37.363822/20260113_222237_Test_result__failure.json"
+}

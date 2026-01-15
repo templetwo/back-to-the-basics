@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-01-13T22:22:37.366091",
+  "outcome": "learning",
+  "tool": "reflector",
+  "summary": "Reflected_on_failure__Previous",
+  "content": "Reflected on failure: Previous test failed. Generated 3 insights.",
+  "metadata": {
+    "insight_type": "pattern"
+  },
+  "_path": "swarm_brain/outcome=learning/insight_type=pattern/20260113_222237_Reflected_on_failure__Previous.json"
+}
