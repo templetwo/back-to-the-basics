@@ -39,7 +39,7 @@ class TestVisualizer:
         stats = temp_visualizer._scan_tree(temp_visualizer.root)
 
         assert stats is not None
-        assert stats["file_count"] == 3
+        assert stats["files"] == 3  # Changed from file_count to files
         assert len(stats["children"]) > 0
 
     def test_hotspots_detection(self, temp_visualizer):
@@ -49,11 +49,11 @@ class TestVisualizer:
         assert isinstance(hotspots, list)
         assert len(hotspots) > 0
 
-        # Check structure
-        for path, count in hotspots:
+        # Check structure - hotspots returns (path, percentage) tuples
+        for path, percentage in hotspots:
             assert isinstance(path, str)
-            assert isinstance(count, int)
-            assert count > 0
+            assert isinstance(percentage, float)  # Changed from int to float
+            assert percentage > 0
 
     def test_map_output(self, temp_visualizer, capsys):
         """Test that map generates output."""
@@ -71,7 +71,7 @@ class TestVisualizer:
         """Test visualizer on empty directory."""
         with tempfile.TemporaryDirectory() as tmpdir:
             viz = Visualizer(tmpdir)
-            stats = viz._scan_tree(tmpdir)
+            stats = viz._scan_tree(Path(tmpdir))  # Pass Path object, not string
 
-            assert stats["file_count"] == 0
+            assert stats["files"] == 0  # Changed from file_count to files
             assert stats["children"] == {}

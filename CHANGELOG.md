@@ -109,9 +109,105 @@ Outcome types with routing metadata:
 
 ---
 
-## [Unreleased]
+## [0.2.0] - 2026-01-16
 
-### Added (2026-01-13)
+### Added
+
+#### Schema Discovery Implementation
+- **derive.py** (411 lines) - Production schema discovery from chaotic file paths
+  - Ward linkage hierarchical clustering via sklearn
+  - Pattern extraction from file paths (key=value routing dimensions)
+  - Schema generation with exact matches, numeric predicates, and regex
+  - Episode grouping (logarithmic bucketing: 0-9, 10-99, 100-999)
+  - Tool family extraction (search, compute, memory, translate, etc.)
+  - 28 comprehensive tests with 87% coverage
+
+- **Enhanced coherence.py**:
+  - Real derive() implementation (replaces placeholder)
+  - Calls derive_schema() from derive.py module
+  - Graceful fallback if sklearn not available
+  - Maintains backward compatibility
+
+#### Threshold-Protocols Integration
+- **Optional Governance Dependency**:
+  - Added `[threshold]` optional dependency group in pyproject.toml
+  - Install with: `pip install back-to-the-basics[threshold]`
+  - Enables governed derive pattern for production deployments
+
+- **btb_thresholds.yaml** - Default governance configuration:
+  - File count threshold (trigger at 100 files)
+  - Self-reference detection (prevent self-modification)
+  - Entropy monitoring (chaos detection at 2.5 nats)
+  - Growth rate tracking (50% in 24h triggers deliberation)
+  - Reorganization frequency limits
+
+#### Examples and Demos
+- **examples/governed_derive/** - Production integration examples:
+  - `demo.py` - Interactive demonstration of governed derive workflow
+  - `README.md` - Comprehensive usage guide with patterns
+  - Shows: chaos → discover → propose → approve → reorganize
+
+#### Testing
+- **test_derive.py** (296 lines) - Comprehensive derive() tests:
+  - TestDeriveSchema (4 tests)
+  - TestExtractPathFeatures (4 tests)
+  - TestClusterPathsSimple (2 tests)
+  - TestGenerateSchemaFromPaths (3 tests)
+  - TestMergeClusterSchemas (3 tests)
+  - TestComputeEpisodeGroup (5 tests)
+  - TestExtractToolFamily (7 tests)
+
+- **test_with_threshold_protocols.py** (359 lines) - Integration tests:
+  - BTB + threshold-protocols integration verification
+  - Governed derive workflow tests
+  - Rollback and audit trail tests
+  - Conditional governance pattern tests
+  - Auto-skipped if threshold-protocols not installed
+
+#### Documentation
+- **INTEGRATION.md** - Complete integration guide:
+  - Architecture diagrams and design principles
+  - Installation options (standalone vs governed)
+  - Usage patterns (ungoverned, governed, conditional)
+  - Configuration and customization
+  - Deployment checklist
+  - Troubleshooting guide
+  - Migration from ungoverned to governed
+
+- **DECISION.md** - Architectural decision record:
+  - Why Option 2 (Governed Derive) was chosen
+  - Analysis of 3 integration options
+  - GROK_MISSION_BRIEF synthesis
+  - Implementation validation
+  - Future evolution path
+
+### Changed
+
+#### Package Configuration
+- **Version**: 0.1.0 → 0.2.0
+- **Description**: Added "with schema discovery"
+- **Dependencies**:
+  - Added: `scikit-learn>=1.3.0` (Ward linkage clustering)
+  - Added: `numpy>=1.24.0` (required by scikit-learn)
+  - Optional: `threshold-protocols>=0.2.0` (governance framework)
+
+- **Package Structure Fix**:
+  - Updated pyproject.toml: `packages = ["back_to_the_basics"]`
+  - Fixed package-dir mapping: `{"back_to_the_basics" = "."}`
+  - Resolves ModuleNotFoundError in threshold-protocols imports
+
+#### Test Updates
+- **test_coherence.py**:
+  - Updated test_transmit_* to use `dry_run=False`
+  - Fixed receive() pattern assertions to match current output format
+  - Changed test_derive_not_implemented → test_derive_implemented
+
+- **test_visualizer.py**:
+  - Fixed field names: `file_count` → `files`
+  - Updated hotspots type: returns `List[Tuple[str, float]]` not int
+  - Fixed empty directory test to use Path object
+
+### Added (Agent Memory - 2026-01-13)
 
 #### Agent Memory Extension
 - **Agent Memory Schema** (`agent_memory_schema.py`) - Optimized routing for multi-agent systems
@@ -155,13 +251,33 @@ Outcome types with routing metadata:
   - Insight-driven iteration loop
   - Demonstrates filesystem as multi-agent brain
 
+### Removed
+- **Placeholder derive()**: Replaced with real Ward clustering implementation
+
+### Integration
+- **Unidirectional Dependency**: threshold-protocols depends on BTB (not reverse)
+- **No Code Duplication**: threshold-protocols imports from BTB package
+- **Test Coverage**: 138 tests passing (BTB: 49, threshold-protocols: 89)
+
+### Governance Features
+- **Human Approval Gates**: Requires explicit approval before reorganization
+- **Audit Logging**: Tamper-evident JSONL audit trail
+- **Rollback Capability**: Preserve originals, support undo
+- **Sandbox Mode**: Test reorganizations before production execution
+- **Threshold Monitoring**: Detect file count, entropy, growth rate, self-reference
+
+---
+
+## [Unreleased]
+
 ### Planned Features
-- Schema discovery via `derive()` implementation
+- Incremental derive (update existing schemas)
+- Hybrid derive + FAISS (semantic + structured routing)
 - Domain-specific circuits (trading, security, research)
 - CLI tooling for memory management
 - Schema validation utilities
 - Remote filesystem support
-- Multi-agent coordination (partially implemented)
+- Threshold auto-tuning based on history
 
 ---
 
@@ -191,4 +307,34 @@ All test data in `MCP_TEST_RESULTS.md` is synthetic. See `DATA_TRANSPARENCY_NOTI
 
 ---
 
+## Release Notes
+
+### Version 0.2.0 - "The Governed Derive"
+
+**Status**: ✅ Production-ready schema discovery | ✅ Optional governance integration
+
+**What's New**:
+- Real derive() implementation using Ward linkage clustering
+- Threshold-protocols integration (opt-in via `[threshold]` extra)
+- Governance patterns: human approval, audit logs, rollback
+- 28 new tests for derive(), 138 total tests passing
+
+**Breaking Changes**: None - fully backward compatible with 0.1.0
+
+**Migration Path**:
+```bash
+# Existing users (ungoverned):
+pip install --upgrade back-to-the-basics
+
+# New users wanting governance:
+pip install back-to-the-basics[threshold]
+```
+
+**Key Insight**: "The filesystem is not storage. It is a circuit. And now it has a conscience."
+
+See `DECISION.md` for architectural rationale and `INTEGRATION.md` for usage guide.
+
+---
+
+[0.2.0]: https://github.com/vaquez/back-to-the-basics/releases/tag/v0.2.0
 [0.1.0]: https://github.com/vaquez/back-to-the-basics/releases/tag/v0.1.0

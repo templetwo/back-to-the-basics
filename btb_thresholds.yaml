@@ -1,0 +1,105 @@
+# BTB Threshold Configuration
+# ===========================
+# Default thresholds for governing back-to-the-basics autonomous capabilities
+# Compatible with threshold-protocols governance framework
+
+thresholds:
+  # File Volume Threshold
+  - metric: file_count
+    limit: 100
+    warning_ratio: 0.8
+    path: "_intake"
+    description: "Trigger derive consideration when intake exceeds 100 files"
+    severity: "medium"
+    action: "notify"
+    # When _intake directory reaches 80 files, warn
+    # When it reaches 100 files, trigger governance circuit
+
+  # Growth Rate Threshold
+  - metric: growth_rate
+    limit: 0.5  # 50% growth in 24h
+    window: "24h"
+    description: "Detect rapid data accumulation"
+    severity: "high"
+    action: "deliberate"
+    # If directory grows by 50%+ in 24 hours, engage deliberation
+
+  # Entropy Threshold
+  - metric: entropy
+    limit: 2.5  # nats
+    description: "High chaos in intake suggests derive needed"
+    severity: "medium"
+    action: "analyze"
+    # Shannon entropy of filenames above 2.5 nats indicates
+    # lack of structure - candidate for schema derivation
+
+  # Self-Reference Threshold (CRITICAL)
+  - metric: self_reference
+    limit: 3
+    description: "Derive modifying itself - requires deliberation"
+    severity: "critical"
+    action: "pause"
+    # If derive.py attempts to reorganize its own code or
+    # BTB infrastructure files, PAUSE for human approval
+    # This prevents autonomous self-modification loops
+
+  # Directory Depth Threshold
+  - metric: directory_depth
+    limit: 10
+    description: "Excessive nesting indicates over-optimization"
+    severity: "low"
+    action: "notify"
+    # Derived schemas deeper than 10 levels may be over-fit
+    # to current data rather than generalizable patterns
+
+  # Reorganization Frequency
+  - metric: reorganization_count
+    limit: 5
+    window: "7d"
+    description: "Too-frequent reorganizations suggest instability"
+    severity: "medium"
+    action: "deliberate"
+    # If derive() runs more than 5 times in a week,
+    # data patterns may be unstable - pause to analyze
+
+# Governance Circuit Integration
+governance:
+  auto_approve: false  # Require human approval for derive operations
+  audit_required: true  # All derive operations logged to audit trail
+  rollback_enabled: true  # Support undo of derive reorganizations
+
+  # Approval gates
+  approval_gates:
+    - condition: "file_count > 100"
+      approvers: ["human"]
+      reason: "Large-scale reorganization requires oversight"
+
+    - condition: "self_reference > 0"
+      approvers: ["human"]
+      reason: "Self-modification ALWAYS requires human approval"
+
+    - condition: "growth_rate > 0.5"
+      approvers: ["human", "simulation"]
+      reason: "Rapid growth: verify with simulation before derive"
+
+# Reflex Triggers (if reflex.py enabled)
+reflex:
+  enabled: false  # Default: manual derive only
+  triggers:
+    - watch_path: "_intake"
+      condition: "file_count >= 100"
+      action: "propose_derive"
+      # When enabled, reflex monitors _intake and proposes
+      # (but does not execute) derive when threshold reached
+
+# Sandbox Settings
+sandbox:
+  enabled: true  # Dry-run first, require approval for execution
+  preserve_originals: true  # Keep backups before reorganization
+  validation_required: true  # Verify all files accessible post-derive
+
+# Logging
+logging:
+  level: "INFO"
+  audit_path: "logs/btb_audit.jsonl"
+  retention_days: 90

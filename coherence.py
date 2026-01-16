@@ -29,6 +29,14 @@ try:
 except ImportError:
     SYMPY_AVAILABLE = False
 
+# Import enhanced schema derivation
+try:
+    from derive import derive_schema
+    DERIVE_AVAILABLE = True
+except ImportError:
+    derive_schema = None  # type: ignore
+    DERIVE_AVAILABLE = False
+
 
 class Coherence:
     """
@@ -496,21 +504,31 @@ class Coherence:
         Given chaos (messy paths), find the signal (implicit schema).
         This is entropy -> structure.
 
+        Uses Ward linkage clustering when available (scipy/sklearn),
+        falls back to pattern-based discovery otherwise.
+
         Args:
             paths: List of file paths to analyze
             min_frequency: Minimum frequency for a pattern to be considered signal
 
         Returns:
-            A schema dict inferred from the paths
+            A schema dict inferred from the paths with:
+            - '_derived': True (marker for derived schemas)
+            - '_structure': Nested routing schema
+            - '_stats': Statistics about derivation
         """
-        # Parse all paths into segments
+        # Use enhanced derive_schema if available
+        if DERIVE_AVAILABLE and derive_schema is not None:
+            return derive_schema(paths, max_clusters=5)
+
+        # Fallback to basic pattern extraction
         parsed = []
         for p in paths:
             parts = Path(p).parts
             parsed.append(parts)
 
         if not parsed:
-            return {}
+            return {'_derived': True, '_structure': {}, '_stats': {'path_count': 0}}
 
         # Analyze each level for key=value patterns
         level_patterns = defaultdict(lambda: defaultdict(int))
@@ -538,11 +556,13 @@ class Coherence:
                         discovered_keys[key]['values'].add(value)
 
         # Convert to nested schema
-        # (Simplified - a full implementation would build proper tree)
         result = {
             '_derived': True,
-            '_path_count': total_paths,
-            '_structure': {}
+            '_structure': {},
+            '_stats': {
+                'path_count': total_paths,
+                'unique_keys': len(discovered_keys)
+            }
         }
 
         for key, info in sorted(discovered_keys.items(), key=lambda x: x[1]['level']):
