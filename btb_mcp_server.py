@@ -340,7 +340,12 @@ Then help me debug, and remember to store the outcome when we're done."""
 # MAIN
 # =============================================================================
 
-if __name__ == "__main__":
+def main():
+    """
+    Main entrypoint for the BTB MCP Server.
+
+    Called when running `btb` from command line (via pyproject.toml script entry).
+    """
     import argparse
 
     parser = argparse.ArgumentParser(description="BTB MCP Server")
@@ -364,7 +369,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # Set memory root
+    # Set memory root - use global since it's referenced by tools
+    global MEMORY_ROOT
     MEMORY_ROOT = args.root
     os.makedirs(MEMORY_ROOT, exist_ok=True)
 
@@ -377,3 +383,7 @@ if __name__ == "__main__":
         mcp.run()
     else:
         mcp.run(transport=args.transport)
+
+
+if __name__ == "__main__":
+    main()
