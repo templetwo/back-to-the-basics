@@ -268,6 +268,51 @@ Outcome types with routing metadata:
 
 ---
 
+## [0.2.1] - 2026-01-16
+
+### Added
+
+#### MCP Server Polish
+- **Polished btb_mcp_server.py** - Major enhancements to MCP integration:
+  - New tools: `btb_derive`, `btb_schema`, `btb_transmit`, `btb_check_threshold`
+  - New resources: `btb://schema`, `btb://health`
+  - New prompts: `schema_discovery`, `governed_derive_prompt`
+  - Lazy-initialized engine caching
+  - Comprehensive docstrings for all tools
+  - Type hints throughout
+
+- **New Tools**:
+  - `btb_derive(directory, pattern, max_clusters, explain)` - Discover schema from existing files
+  - `btb_schema(format, include_stats)` - View/export current routing schema (json/tree/yaml)
+  - `btb_transmit(packet, dry_run, create_file)` - Route packets through schema
+  - `btb_check_threshold(directory, config_path)` - Check governance thresholds
+
+- **CLI Enhancements**:
+  - `--root` - Custom memory directory
+  - `--transport` - stdio/streamable-http/sse options
+  - `--port` - Port for HTTP transports
+  - `--config` - Path to threshold config YAML
+  - `--version` - Show version and feature status
+
+#### Testing
+- **test_mcp_server.py** (449 lines) - 27 comprehensive tests:
+  - TestMemoryEngine: init, remember (4 outcomes), recall, reflect, forget
+  - TestVisualizer: init, map, summary, hotspots
+  - TestCoherenceEngine: init, transmit, receive
+  - TestDerive: schema discovery, key detection, explanations
+  - TestIntegration: full workflow tests
+
+### Changed
+- **pyproject.toml**: Added `[mcp]` and `[full]` optional dependencies
+- **pyproject.toml**: Added `pytest-asyncio>=0.21.0` to dev dependencies
+
+### Fixed
+- Proper error handling with `_format_error()` helper
+- JSON response consistency across all tools
+- Governance tool graceful degradation when threshold-protocols not installed
+
+---
+
 ## [Unreleased]
 
 ### Planned Features

@@ -47,11 +47,20 @@ classifiers = [
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
+    "pytest-asyncio>=0.21.0",
     "black>=23.0.0",
     "ruff>=0.1.0",
 ]
 threshold = [
     "threshold-protocols>=0.2.0",  # Governance framework for autonomous BTB
+]
+mcp = [
+    "mcp>=0.1.0",
+    "pyyaml>=6.0",  # For YAML config support
+]
+full = [
+    "threshold-protocols>=0.2.0",
+    "pyyaml>=6.0",
 ]
 
 [project.urls]
