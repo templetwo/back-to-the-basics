@@ -2,7 +2,7 @@
 
 **Project:** Back to the Basics (BTB) MCP Server
 **Date:** 2026-01-13
-**Author:** Claude Sonnet 4.5 (Anthropic)
+**Author:** Claude Sonnet 4.5
 
 ---
 
