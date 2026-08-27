@@ -203,7 +203,7 @@ def btb_remember(
 
         return f"Memory stored at: {path}"
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.tool()
@@ -257,7 +257,7 @@ def btb_recall(
 
         return json.dumps(results, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.tool()
@@ -298,7 +298,7 @@ def btb_reflect() -> str:
 
         return json.dumps(output, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 # =============================================================================
@@ -323,7 +323,7 @@ def btb_map(max_depth: int = 4) -> str:
         viz = get_visualizer()
         return _capture_stdout(viz.map, max_depth=max_depth)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.tool()
@@ -349,7 +349,7 @@ def btb_hotspots(top_n: int = 10) -> str:
             for path, count in spots
         ], indent=2)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 # =============================================================================
@@ -489,7 +489,7 @@ def btb_schema(
 
             return json.dumps(output, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.tool()
@@ -546,7 +546,7 @@ def btb_transmit(
 
         return json.dumps(result, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 # =============================================================================
@@ -598,7 +598,7 @@ def btb_check_threshold(
             "recommendation": "PAUSE" if result.crossed else "PROCEED"
         }, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 # =============================================================================
@@ -612,7 +612,7 @@ def get_topology() -> str:
         viz = get_visualizer()
         return _capture_stdout(viz.map, max_depth=3)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.resource("btb://stats")
@@ -623,7 +623,7 @@ def get_stats() -> str:
         analysis = engine.reflect()
         return json.dumps(analysis, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.resource("btb://recent/{count}")
@@ -634,7 +634,7 @@ def get_recent_memories(count: str = "5") -> str:
         memories = engine.recall(pattern=f"{MEMORY_ROOT}/**/*.json")[:int(count)]
         return json.dumps(memories, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.resource("btb://schema")
@@ -644,7 +644,7 @@ def get_current_schema() -> str:
         engine = get_memory_engine()
         return json.dumps({"schema": engine.schema}, indent=2, default=str)
     except Exception as e:
-        return _format_error(e)
+        raise
 
 
 @mcp.resource("btb://health")
